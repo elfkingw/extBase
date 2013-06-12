@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="         http://www.springframework.org/schema/beans          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  <bean id="internalPathMethodNameResolver" class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver" />
+  <!--  Handler -->
+  <bean name="/user/*" class="com.richie.privilege.web.UserHandler">
+    <property name="userService" ref="userService" />
+    <property name="dictionaryService" ref="dictionaryService" />
+    <property name="homeConfigService" ref="homeConfigService" />
+    <property name="methodNameResolver" ref="internalPathMethodNameResolver" />
+  </bean>
+  <bean name="/privilege/*" class="com.richie.privilege.web.PrivilegeHandler">
+    <property name="privilegeService" ref="privilegeService" />
+    <property name="methodNameResolver" ref="internalPathMethodNameResolver" />
+  </bean>
+  <bean name="/menu/*" class="com.richie.privilege.web.MenuHandler">
+    <property name="MenuService" ref="menuService" />
+    <property name="methodNameResolver" ref="internalPathMethodNameResolver" />
+  </bean>
+  <bean name="/role/*" class="com.richie.privilege.web.RoleHandler">
+    <property name="RoleService" ref="roleService" />
+    <property name="methodNameResolver" ref="internalPathMethodNameResolver" />
+  </bean>
+  <bean name="/notice/*" class="com.richie.common.web.NoticeHandler">
+    <property name="noticeService">
+      <ref bean="noticeService" />
+    </property>
+    <property name="methodNameResolver" ref="internalPathMethodNameResolver" />
+  </bean>
+  <bean name="/dicType/*" class="com.richie.common.web.DicTypeHandler">
+    <property name="dicTypeService">
+      <ref bean="dicTypeService" />
+    </property>
+    <property name="methodNameResolver" ref="internalPathMethodNameResolver" />
+  </bean>
+  <bean name="/dictionary/*" class="com.richie.common.web.DictionaryHandler">
+    <property name="dictionaryService">
+      <ref bean="dictionaryService" />
+    </property>
+    <property name="dicTypeService">
+      <ref bean="dicTypeService" />
+    </property>
+    <property name="methodNameResolver" ref="internalPathMethodNameResolver" />
+  </bean>
+</beans>
+

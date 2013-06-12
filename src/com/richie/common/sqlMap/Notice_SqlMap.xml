@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Notice">
+ 	<resultMap id="noticeMap" class="com.richie.common.domain.Notice" >
+	 	<result column="ID" property="id" jdbcType="int" /><!--id_cnName-->
+	 	<result column="NOTICE_NAME" property="noticeName" jdbcType="varchar" /><!--标题-->
+	 	<result column="NOTICE_CONTENT" property="noticeContent" jdbcType="text" /><!--公告内容-->
+	 	<result column="CREATE_USER_ID" property="createUserId" jdbcType="int" /><!--创建人-->
+	 	<result column="NOTICE_TIME" property="noticeTime" jdbcType="date" /><!--创建时间-->
+	 	<result column="CREATE_TIME" property="createTime" jdbcType="datetime" /><!--创建时间-->
+  	</resultMap>
+<!--查询条件-->  	
+	<sql id="queryWhereCause">
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id" >
+				ID =#id:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="noticeName" >
+				NOTICE_NAME =#noticeName:varchar#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="noticeContent" >
+				NOTICE_CONTENT =#noticeContent:text#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createUserId" >
+				CREATE_USER_ID =#createUserId:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="noticeTime" >
+				NOTICE_TIME =#noticeTime:date#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="createTime" >
+				CREATE_TIME =#createTime:datetime#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+<!--排序-->
+	<sql id="orderCause">
+		<isNotEmpty prepend=" " property="orderMap" >
+			order by $orderMap.sort$ $orderMap.dir$ 
+		</isNotEmpty>
+	</sql>	
+<!--缓存-->
+	<cacheModel id="notice-cache" type ="LRU" readOnly="false" serialize="true">
+		<flushInterval hours="24"/>
+		<flushOnExecute statement="Notice.delete"/> 
+		<flushOnExecute statement="Notice.update"/>
+		<flushOnExecute statement="Notice.insert"/>
+		<property name="cache-size" value="500" />
+	</cacheModel>
+<!--分页查询--> 
+	<select id="queryForPage" parameterClass="com.richie.common.domain.Notice"  resultMap="noticeMap" cacheModel="notice-cache">
+		select *  from notice 
+		<include refid="Notice.queryWhereCause"/>
+		<include refid="Notice.orderCause"/>
+			limit #start# ,#limit#   
+	</select>
+<!--删除--> 	
+	<delete id="delete" parameterClass="java.lang.Integer">
+		delete  from notice where id = #id#
+	</delete>	
+<!--查询总数--> 	
+	<select id="queryCount" parameterClass="com.richie.common.domain.Notice" resultClass="java.lang.Integer">
+		<![CDATA[
+			select count(*) from notice
+		]]>
+		<include refid="Notice.queryWhereCause"/>
+	</select>
+
+	<select id="query" parameterClass="com.richie.common.domain.Notice" resultClass="com.richie.common.domain.Notice">
+		select *  from notice
+		<include refid="Notice.queryWhereCause"/>
+		<include refid="Notice.orderCause"/>
+	</select>
+<!--修改--> 	
+ 	<update id="updateNotice" parameterClass="com.richie.common.domain.Notice" >
+   		update notice
+    	<dynamic prepend="set" >
+			<isNotNull prepend="," property="id" >
+				ID =#id:int#
+			</isNotNull>
+			<isNotNull prepend="," property="noticeName" >
+				NOTICE_NAME =#noticeName:varchar#
+			</isNotNull>
+			<isNotNull prepend="," property="noticeContent" >
+				NOTICE_CONTENT =#noticeContent:text#
+			</isNotNull>
+			<isNotNull prepend="," property="createUserId" >
+				CREATE_USER_ID =#createUserId:int#
+			</isNotNull>
+			<isNotNull prepend="," property="noticeTime" >
+				NOTICE_TIME =#noticeTime:date#
+			</isNotNull>
+			<isNotNull prepend="," property="createTime" >
+				CREATE_TIME =#createTime:datetime#
+			</isNotNull>
+    	</dynamic>
+    	where ID = #id:INTEGER#
+	</update>
+<!--修改--> 
+	<update id="update" parameterClass="com.richie.common.domain.Notice" >
+  		update notice   set NOTICE_NAME=#noticeName:varchar# , NOTICE_CONTENT=#noticeContent:text# , CREATE_USER_ID=#createUserId:int# , NOTICE_TIME=#noticeTime:date# , CREATE_TIME=#createTime:datetime#  where ID = #id:INTEGER#
+	</update>
+<!--插入--> 
+	<insert id="insert" parameterClass="com.richie.common.domain.Notice" >
+    	insert into notice   ( NOTICE_NAME , NOTICE_CONTENT , CREATE_USER_ID , NOTICE_TIME , CREATE_TIME) values  ( #noticeName:varchar# , #noticeContent:text#  , #createUserId:int#  , #noticeTime:date#  , #createTime:datetime# )
+     	 <selectKey keyProperty="id" resultClass="java.lang.Integer">
+    		  SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+<!--根据主建查询--> 
+	<select id="selectByPrimaryKey" resultMap="noticeMap" parameterClass="com.richie.common.domain.Notice" >
+  	 	select * from notice where ID = #id:BIGINT#
+	</select>
+<!--根据主建删除--> 
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+  		delete from notice where ID = #id:INTEGER#
+	</delete> 
+
+</sqlMap>

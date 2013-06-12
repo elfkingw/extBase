@@ -1,0 +1,30 @@
+#set($domainClass = $stringUtils.capitaliseAll(${model.name}))
+#set($domainName = $stringUtils.uncapitaliseAll(${model.name}))
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>menu.html</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="../../resources/styles/ext-all.css" rel="stylesheet" type="text/css"/>
+    <link href="../../resources/scripts/ux/css/StatusBar.css" rel="stylesheet" type="text/css"/>
+	<link href="../../resources/styles/screen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+#foreach($f in $model.fields)
+#if($stringUtils.getJavaTypeStr($f.javaType)=="String"&&${f.size}>1000)	
+	<script type="text/javascript" src="../../resources/kindEditor/kindeditor.js"></script>
+#end
+#end
+	<script type="text/javascript" src="../../resources/scripts/ext-base.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/ext-all.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/ext-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/utils.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/ux/PageComboResizer.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/ux/gridToExcel.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/ux/StatusBar.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/ux/ValidationStatus.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/privilege/${domainName}-panel.js"></script>
+	<script type="text/javascript" src="../../resources/scripts/privilege/${domainName}-add-win.js"></script>
+  </body>
+</html>

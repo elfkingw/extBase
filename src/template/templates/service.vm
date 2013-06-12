@@ -1,0 +1,85 @@
+#set($domainClass = $stringUtils.capitaliseAll(${model.name}))
+#set($domainName = $stringUtils.uncapitaliseAll(${model.name}))
+
+package $package;
+
+import java.util.List;
+
+
+import $daoPackage.${domainClass}DAO;
+import $pojoPackage.${domainClass};
+
+/**
+ * 
+ * @author wanghua 
+ */
+@SuppressWarnings("unchecked")
+public class ${domainClass}Service {
+	private ${domainClass}DAO ${domainName}DAO;
+
+	public void set${domainClass}DAO(${domainClass}DAO ${domainName}DAO) {
+		this.${domainName}DAO = ${domainName}DAO;
+	}
+
+	/**
+	 *分页查询 
+	 * @author wanghua 
+	 * @param list
+	 * @return
+	 */
+	public List<$domainClass> list(final $domainClass $domainName) {
+	    List<$domainClass> list = ${domainName}DAO.queryForPage(${domainName});
+		return list;
+	}
+	/**
+	 *查询
+	 * @author wanghua 
+	 * @param list
+	 * @return
+	 */
+	public List<$domainClass> query(final $domainClass $domainName) {
+		List<$domainClass> list = ${domainName}DAO.queryForCondition($domainName);
+		return list;
+	}
+	/**
+	 * 查询总条数
+	 *@author wanghua
+	 *Mar 11, 20101:31:00 PM
+	 * @param $domainName
+	 * @return
+	 */
+	public int getCount($domainClass $domainName){
+		return ${domainName}DAO.queryCount($domainName);
+	}
+	
+	/**
+	 * 新增信息
+	 *@author wanghua
+	 * @param $domainName
+	 * @return
+	 */
+	public Integer save($domainClass $domainName){
+		return (Integer) ${domainName}DAO.save($domainName);
+	}
+	
+	/**
+	 * 修改信息
+	 *@author wanghua
+	 * @param $domainName
+	 * @return
+	 */
+	public Integer update($domainClass $domainName){
+		return (Integer) ${domainName}DAO.update($domainName);
+	}
+	
+	/**
+	 * 删除
+	 *@author wanghua
+	 * @param id
+	 */
+	public void delete(Integer id){
+		${domainName}DAO.deleteById(id);
+	}
+	
+
+}

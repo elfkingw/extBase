@@ -1,0 +1,55 @@
+
+package $package;
+/**
+ * author:wanghua
+ * description:数据库对应实体pojo
+ * richie code
+ */
+import java.sql.Timestamp;
+import java.sql.Date;
+import com.richie.framework.domain.BaseDomain;
+
+/**
+ * 
+ * @author wanghua 
+ */
+public class $class extends BaseDomain implements java.io.Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	public ${class}(){
+	}
+	
+	public ${class}(Integer id){
+		this.id= id;
+	}
+	
+#foreach($f in $model.fields)
+
+#if($f.fk)
+	private $stringUtils.capitaliseAll($f.getFKTableName()) $stringUtils.uncapitaliseAll($f.getFKTableName());//${stringUtils.uncapitaliseAll($f.name)}_cnName
+#else	
+	private $stringUtils.getJavaTypeStr($f.javaType) $stringUtils.uncapitaliseAll($f.name);//${stringUtils.uncapitaliseAll($f.name)}_cnName
+#end
+	
+#end
+#foreach($f in $model.fields)
+#if($f.fk)
+	public $stringUtils.capitaliseAll($f.getFKTableName()) $stringUtils.getMethodName($f.getFKTableName())(){
+		return this.$stringUtils.uncapitaliseAll($f.getFKTableName());
+	}
+
+	public void $stringUtils.setMethodName($f.getFKTableName()) ($stringUtils.capitaliseAll($f.getFKTableName()) $stringUtils.uncapitaliseAll($f.getFKTableName())){
+		this.$stringUtils.uncapitaliseAll($f.getFKTableName()) = $stringUtils.uncapitaliseAll($f.getFKTableName());
+	}
+#else
+	public $stringUtils.getJavaTypeStr($f.javaType) $stringUtils.getMethodName($f.name)(){
+		return this.$stringUtils.uncapitaliseAll($f.name);
+	}
+
+	public void $stringUtils.setMethodName($f.name) ($stringUtils.getJavaTypeStr($f.javaType) $stringUtils.uncapitaliseAll($f.name)){
+		this.$stringUtils.uncapitaliseAll($f.name) = $stringUtils.uncapitaliseAll($f.name);
+	}
+#end	
+#end
+}

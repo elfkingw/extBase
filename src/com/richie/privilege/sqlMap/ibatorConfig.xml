@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ibatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN" "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd" >
+<ibatorConfiguration >
+  <classPathEntry
+		location="D:\eworkspace\extBase\WebContent\WEB-INF\lib\mysql-connector-java-5.0.6-bin.jar" />
+  <ibatorContext id="context1" >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/extBase" userId="root" password="sa" >
+    </jdbcConnection>
+    <javaModelGenerator targetPackage="com.richie.privilege.domain" targetProject="extBase" />
+    <sqlMapGenerator targetPackage="com.richie.privilege.sqlMap" targetProject="extBase" />
+    <daoGenerator targetPackage="com.richie.privilege.dao" targetProject="extBase" type="GENERIC-CI" />
+    <table schema="extBase" tableName="menus" >
+    <generatedKey column="ID" sqlStatement="mysql" identity="true" />
+      <!--<columnOverride column="???" property="???" />-->
+    </table>
+  </ibatorContext>
+</ibatorConfiguration>

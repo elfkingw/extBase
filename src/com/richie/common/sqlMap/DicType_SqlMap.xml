@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="DicType">
+ 	<resultMap id="dicTypeMap" class="com.richie.common.domain.DicType" >
+	 	<result column="ID" property="id" jdbcType="int" /><!--id_cnName-->
+	 	<result column="DIC_TYPE" property="dicType" jdbcType="varchar" /><!--字典类型-->
+	 	<result column="DIC_NOTE" property="dicNote" jdbcType="varchar" /><!--类型名称-->
+  	</resultMap>
+<!--查询条件-->  	
+	<sql id="queryWhereCause">
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id" >
+				ID =#id:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dicType" >
+				DIC_TYPE =#dicType:varchar#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dicNote" >
+				DIC_NOTE =#dicNote:varchar#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+<!--排序-->
+	<sql id="orderCause">
+		<isNotEmpty prepend=" " property="orderMap" >
+			order by $orderMap.sort$ $orderMap.dir$ 
+		</isNotEmpty>
+	</sql>	
+<!--缓存-->
+	<cacheModel id="dicType-cache" type ="LRU" readOnly="false" serialize="true">
+		<flushInterval hours="24"/>
+		<flushOnExecute statement="DicType.delete"/> 
+		<flushOnExecute statement="DicType.update"/>
+		<flushOnExecute statement="DicType.insert"/>
+		<property name="cache-size" value="500" />
+	</cacheModel>
+<!--分页查询--> 
+	<select id="queryForPage" parameterClass="com.richie.common.domain.DicType"  resultMap="dicTypeMap" cacheModel="dicType-cache">
+		select *  from dic_type 
+		<include refid="DicType.queryWhereCause"/>
+		<include refid="DicType.orderCause"/>
+			limit #start# ,#limit#   
+	</select>
+<!--删除--> 	
+	<delete id="delete" parameterClass="java.lang.Integer">
+		delete  from dic_type where id = #id#
+	</delete>	
+<!--查询总数--> 	
+	<select id="queryCount" parameterClass="com.richie.common.domain.DicType" resultClass="java.lang.Integer">
+		<![CDATA[
+			select count(*) from dic_type
+		]]>
+		<include refid="DicType.queryWhereCause"/>
+	</select>
+
+	<select id="query" parameterClass="com.richie.common.domain.DicType" resultMap="dicTypeMap" cacheModel="dicType-cache">
+		select *  from dic_type
+		<include refid="DicType.queryWhereCause"/>
+		<include refid="DicType.orderCause"/>
+	</select>
+<!--修改--> 	
+ 	<update id="updateDicType" parameterClass="com.richie.common.domain.DicType" >
+   		update dic_type
+    	<dynamic prepend="set" >
+			<isNotNull prepend="," property="id" >
+				ID =#id:int#
+			</isNotNull>
+			<isNotNull prepend="," property="dicType" >
+				DIC_TYPE =#dicType:varchar#
+			</isNotNull>
+			<isNotNull prepend="," property="dicNote" >
+				DIC_NOTE =#dicNote:varchar#
+			</isNotNull>
+    	</dynamic>
+    	where ID = #id:INTEGER#
+	</update>
+<!--修改--> 
+	<update id="update" parameterClass="com.richie.common.domain.DicType" >
+  		update dic_type   set DIC_TYPE=#dicType:varchar# , DIC_NOTE=#dicNote:varchar#  where ID = #id:INTEGER#
+	</update>
+<!--插入--> 
+	<insert id="insert" parameterClass="com.richie.common.domain.DicType" >
+    	insert into dic_type   ( DIC_TYPE , DIC_NOTE) values  ( #dicType:varchar# , #dicNote:varchar# )
+     	 <selectKey keyProperty="id" resultClass="java.lang.Integer">
+    		  SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+<!--根据主建查询--> 
+	<select id="selectByPrimaryKey" resultMap="dicTypeMap" parameterClass="com.richie.common.domain.DicType" >
+  	 	select * from dic_type where ID = #id:BIGINT#
+	</select>
+<!--根据主建删除--> 
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+  		delete from dic_type where ID = #id:INTEGER#
+	</delete> 
+
+</sqlMap>

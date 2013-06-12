@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="HomeConfig">
+<!-- no pk-->
+ 	<resultMap id="homeConfigMap" class="com.richie.common.domain.HomeConfig" >
+	 	<result column="ID" property="id" jdbcType="int" /><!--id_cnName-->
+	 	<result column="USER_ID" property="userId" jdbcType="int" /><!--userId_cnName-->
+	 	<result column="HOME_PAGE" property="homePage" jdbcType="varchar" /><!--homePage_cnName-->
+	 	<result column="col" property="col" jdbcType="int" /><!--col_cnName-->
+	 	<result column="row" property="row" jdbcType="int" /><!--row_cnName-->
+	 	<result column="isHide" property="ishide" jdbcType="int" /><!--ishide_cnName-->
+  	</resultMap>
+<!-- has fk-->	
+<!--查询条件-->  	
+	<sql id="queryWhereCause">
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id" >
+				a.ID =#id:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="userId" >
+				a.USER_ID =#userId:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="homePage" >
+				a.HOME_PAGE =#homePage:varchar#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="col" >
+				a.col =#col:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="row" >
+				a.row =#row:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ishide" >
+				a.isHide =#ishide:int#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+<!--排序-->
+	<sql id="orderCause">
+		<isNotEmpty prepend=" " property="orderMap" >
+			order by a.$orderMap.sort$ $orderMap.dir$ 
+		</isNotEmpty>
+	</sql>	
+<!--缓存-->
+	<cacheModel id="homeConfig-cache" type ="LRU" readOnly="false" serialize="true">
+		<flushInterval hours="24"/>
+		<flushOnExecute statement="HomeConfig.delete"/> 
+		<flushOnExecute statement="HomeConfig.update"/>
+		<flushOnExecute statement="HomeConfig.insert"/>
+		<property name="cache-size" value="500" />
+	</cacheModel>
+<!--分页查询--> 
+	<select id="queryForPage" parameterClass="com.richie.common.domain.HomeConfig"  resultMap="homeConfigMap" cacheModel="homeConfig-cache">
+		select *  from home_config a
+		<include refid="HomeConfig.queryWhereCause"/>
+		<include refid="HomeConfig.orderCause"/>
+			limit #start# ,#limit#   
+	</select>
+
+<!--删除--> 	
+	<delete id="delete" parameterClass="java.lang.Integer">
+		delete  from home_config where id = #id#
+	</delete>	
+	<!--删除--> 	
+	<delete id="deleteHomeConfigs" parameterClass="java.lang.Integer">
+		delete  from home_config where USER_ID = #userId#
+	</delete>	
+<!--查询总数--> 	
+	<select id="queryCount" parameterClass="com.richie.common.domain.HomeConfig" resultClass="java.lang.Integer">
+		<![CDATA[
+			select count(*) from home_config
+		]]>
+		<include refid="HomeConfig.queryWhereCause"/>
+	</select>
+	
+<!--查询--> 
+	<select id="query" parameterClass="com.richie.common.domain.HomeConfig"  resultMap="homeConfigMap" cacheModel="homeConfig-cache">
+		select *  from home_config a
+		<include refid="HomeConfig.queryWhereCause"/>
+		<include refid="HomeConfig.orderCause"/> 
+		order by a.row
+	</select>
+
+
+
+<!--修改--> 	
+ 	<update id="updateHomeConfig" parameterClass="com.richie.common.domain.HomeConfig" >
+   		update home_config
+    	<dynamic prepend="set" >
+			<isNotNull prepend="," property="id" >
+				ID =#id:int#
+			</isNotNull>
+			<isNotNull prepend="," property="userId" >
+				USER_ID =#userId:int#
+			</isNotNull>
+			<isNotNull prepend="," property="homePage" >
+				HOME_PAGE =#homePage:varchar#
+			</isNotNull>
+			<isNotNull prepend="," property="col" >
+				col =#col:int#
+			</isNotNull>
+			<isNotNull prepend="," property="row" >
+				row =#row:int#
+			</isNotNull>
+			<isNotNull prepend="," property="ishide" >
+				isHide =#ishide:int#
+			</isNotNull>
+    	</dynamic>
+    	where ID = #id:INTEGER#
+	</update>
+<!--修改--> 
+	<update id="update" parameterClass="com.richie.common.domain.HomeConfig" >
+  		update home_config   set USER_ID=#userId:int# , HOME_PAGE=#homePage:varchar# , col=#col:int# , row=#row:int# , isHide=#ishide:int#  where ID = #id:INTEGER#
+	</update>
+<!--插入--> 
+	<insert id="insert" parameterClass="com.richie.common.domain.HomeConfig" >
+    	insert into home_config   ( USER_ID , HOME_PAGE , col , row , isHide) values  ( #userId:int# , #homePage:varchar#  , #col:int#  , #row:int#  , #ishide:int# )
+     	 <selectKey keyProperty="id" resultClass="java.lang.Integer">
+    		  SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+<!--根据主建查询--> 
+	<select id="selectByPrimaryKey" resultMap="homeConfigMap" parameterClass="com.richie.common.domain.HomeConfig" >
+  	 	select * from home_config where ID = #id:BIGINT#
+	</select>
+<!--根据主建删除--> 
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+  		delete from home_config where ID = #id:INTEGER#
+	</delete> 
+
+</sqlMap>

@@ -1,0 +1,172 @@
+.refresh {
+	background-image: url(../icons/refresh.gif) !important;
+}
+#header {
+    background: #7F99BE url(../images/layout-browser-hd-bg.gif) repeat-x center;
+    text-align: left;
+}
+#header h1 {
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold ;
+    padding: 6px 10px;
+}
+/**===========================16*16==================================**/
+.systemManage {
+	background-image: url(../icons/folder_wrench.gif) !important;
+}
+.password {
+	background-image: url(../icons/password.png) !important;
+}
+.logout {
+	background-image: url(../icons/logout.gif) !important;
+}
+.query {
+	background-image: url(../icons/find.png) !important;
+}
+.menu {
+	background-image: url(../icons/menu.png) !important;
+}
+.switch {
+	background-image: url(../icons/switch.png) !important;
+}
+.male {
+	background-image: url(../icons/user_male.png) !important;
+}
+.female{
+	background-image: url(../icons/user_female.png) !important;
+}
+.function{
+	background-image: url(../icons/function.png) !important;
+}
+.group{
+	background-image: url(../icons/group.png) !important;
+}
+.excel{
+	background-image: url(../icons/xls.gif) !important;
+}
+.icon-expand-all{
+	background-image: url(../icons/collapse-all.gif) !important;
+}
+.icon-collapse-all{
+	background-image: url(../icons/expand-all.gif) !important;
+}
+.notice{
+	background-image: url(../icons/notice.png) !important;
+}
+.dictionary{
+	background-image: url(../icons/dictionary.png) !important;
+}
+.help16{
+	background-image: url(../icons/help16.gif) !important;
+}
+.config{
+	background-image: url(../icons/home-config.png) !important;
+}
+.save{
+	background-image: url(../icons/save.png) !important;
+}
+/**===========================16*16 结束==================================**/
+/** ============================24*24 开始 ============================== */
+.setting {
+    background-image: url( ../icons/setting.png) !important;
+}
+.help {
+    background-image: url( ../icons/help.png) !important;
+}
+.repair{
+	background-image: url( ../icons/repair.png) !important;
+}
+.message{
+	background-image: url( ../icons/message.png) !important;
+}
+.baseMessage{
+	background-image: url( ../icons/base_manager.png) !important;
+}
+/** ============================24*24 完毕 ============================== */
+.page{background: url(../icons/icon_page.gif) no-repeat left 0px !important;}
+.page_add{background: url(../icons/icon_page.gif) no-repeat left -22px !important;}
+.page_edit{background: url(../icons/icon_page.gif) no-repeat left -42px !important;}
+.page_delete{background: url(../icons/icon_page.gif) no-repeat left -62px !important;}
+.page_find{background: url(../icons/icon_page.gif) no-repeat left -82px !important;}
+.page_gear{background: url(../icons/icon_page.gif) no-repeat left -102px !important;}
+.page_attach{background: url(../icons/icon_page.gif) no-repeat left -122px !important;}
+.page_link{background: url(../icons/icon_page.gif) no-repeat left -142px !important;}
+.page_goto{background: url(../icons/icon_page.gif) no-repeat left -162px !important;}
+.page_key{background: url(../icons/icon_page.gif) no-repeat left -182px !important;}
+.page_save{background: url(../icons/icon_page.gif) no-repeat left -202px !important;}
+.page_refresh{background: url(../icons/icon_page.gif) no-repeat left -222px !important;}
+.page_excel{background: url(../icons/icon_page.gif) no-repeat left -242px !important;}
+.page_word{background: url(../icons/icon_page.gif) no-repeat left -262px !important;}
+
+.table{background: url(../icons/icon_table.gif) no-repeat left 2px !important;}
+.table_add{background: url(../icons/icon_table.gif) no-repeat left -22px !important;}
+.table_edit{background: url(../icons/icon_table.gif) no-repeat left -42px !important;}
+.table_delete{background: url(../icons/icon_table.gif) no-repeat left -62px !important;}
+.table_find{background: url(../icons/icon_table.gif) no-repeat left -82px !important;}
+.table_gear{background: url(../icons/icon_table.gif) no-repeat left -102px !important;}
+.table_attach{background: url(../icons/icon_table.gif) no-repeat left -122px !important;}
+.table_link{background: url(../icons/icon_table.gif) no-repeat left -142px !important;}
+.table_goto{background: url(../icons/icon_table.gif) no-repeat left -162px !important;}
+.table_key{background: url(../icons/icon_table.gif) no-repeat left -182px !important;}
+.table_save{background: url(../icons/icon_table.gif) no-repeat left -202px !important;}
+.table_refresh{background: url(../icons/icon_table.gif) no-repeat left -222px !important;}
+.table_row_insert{background: url(../icons/icon_table.gif) no-repeat left -242px !important;}
+.table_row_delete{background: url(../icons/icon_table.gif) no-repeat left -262px !important;}
+
+.tag{background: url(../icons/icon_tag.gif) no-repeat left 2px !important;}
+.tag_add{background: url(../icons/icon_tag.gif) no-repeat left -22px !important;}
+.tag_edit{background: url(../icons/icon_tag.gif) no-repeat left -42px !important;}
+.tag_delete{background: url(../icons/icon_tag.gif) no-repeat left -62px !important;}
+
+.mail{background: url(../icons/icon_mail.gif) no-repeat left 2px !important;}
+.mail_add{background: url(../icons/icon_mail.gif) no-repeat left -22px !important;}
+.mail_edit{background: url(../icons/icon_mail.gif) no-repeat left -42px !important;}
+.mail_delete{background: url(../icons/icon_mail.gif) no-repeat left -62px !important;}
+.mail_find{background: url(../icons/icon_mail.gif) no-repeat left -82px !important;}
+.mail_open{background: url(../icons/icon_mail.gif) no-repeat left -102px !important;}
+.mail_attach{background: url(../icons/icon_mail.gif) no-repeat left -122px !important;}
+.mail_link{background: url(../icons/icon_mail.gif) no-repeat left -142px !important;}
+.mail_goto{background: url(../icons/icon_mail.gif) no-repeat left -162px !important;}
+
+.feed{background: url(../icons/icon_feed.gif) no-repeat left 2px !important;}
+.feed_add{background: url(../icons/icon_feed.gif) no-repeat left -22px !important;}
+.feed_edit{background: url(../icons/icon_feed.gif) no-repeat left -42px !important;}
+.feed_delete{background: url(../icons/icon_feed.gif) no-repeat left -62px !important;}
+.feed_find{background: url(../icons/icon_feed.gif) no-repeat left -82px !important;}
+.feed_link{background: url(../icons/icon_feed.gif) no-repeat left -102px !important;}
+.feed_goto{background: url(../icons/icon_feed.gif) no-repeat left -122px !important;}
+.feed_key{background: url(../icons/icon_feed.gif) no-repeat left -142px !important;}
+.feed_save{background: url(../icons/icon_feed.gif) no-repeat left -162px !important;}
+
+.grid-row-canel{ 
+	background-color:lightgrey;//改变 行的颜色 
+} 
+a:link {
+color:#000000;
+text-decoration:none;
+}
+a:visited {
+	color:#000000;
+	text-decoration:none;
+}
+a:hover {
+	color:red;
+	text-decoration:none;
+}
+a.top:link {
+	color:blue;
+	text-decoration:none;
+}
+a.top:visited {
+	color:blue;
+	text-decoration:none;
+}
+a.top:hover {
+	color:red;
+	text-decoration:none;
+}
+a:active {
+	color:blue;
+	text-decoration:none;
+}

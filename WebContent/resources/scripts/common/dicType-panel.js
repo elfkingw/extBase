@@ -1,0 +1,168 @@
+Ext.namespace("DicType");
+DicType.panel = function(){
+	this.dicTypeId;
+	this.addWin=null;
+	this.store = new Ext.data.Store({
+		proxy: new Ext.data.HttpProxy({
+			url: '../../dicType/list.form'
+		}),
+		remoteSort:true,
+		reader: new Ext.data.JsonReader({
+			root: 'result',
+			totalProperty: 'total',
+			fields: ['id','dicType','dicNote']
+		}),listeners:{
+			 beforeload :{    
+	    	  	fn : function(thiz,options){
+       	          Ext.apply(thiz.baseParams,
+       	          { 
+       	          	 //name:this.queryName.getValue()
+       	          });    
+              },
+              scope:this 
+	    	}
+		}
+	});
+
+	this.colModel = new Ext.grid.ColumnModel({
+		defaults: {
+	        width: 100,
+	        sortable: true
+	    },
+	    columns: [{header:'字典类型',dataIndex:'dicType'},{header:'类型名称',dataIndex:'dicNote'}]
+	});
+	this.editButton = new Ext.Button({text:'编辑',id:'900002',iconCls:'table_edit',scope:this,handler:this.initUpdate,disabled:true});
+	this.gridPanel = new Ext.grid.GridPanel({
+		id:'dicType_grid',
+		region: 'center',
+		cm:this.colModel,
+		store:this.store,
+		stripeRows: true, 
+		viewConfig : {
+			forceFit : true
+		},
+		tbar:[
+			new Ext.Button({text:'新增',id:'900001',iconCls:'table_add',scope:this,handler:this.initSave}),'-',
+			this.editButton,'-',
+			new Ext.Button({text:'删除',id:'900003',iconCls:'table_delete',scope:this,handler:this.del,disabled:true})
+		],
+        loadMask: {msg: '加载数据,请稍候...'},
+      	bbar:new Ext.PagingToolbar({
+			 pageSize: 15,
+	         store: this.store,
+	         items :['-',{text: '导出到Excel',iconCls:'excel',scope:this, handler : this.exportExcel}],
+	         displayInfo: true,
+	         displayMsg: '显示第 {0} 条到 {1} 条记录，共 {2} 页',
+	         emptyMsg: "没有记录...",
+	         plugins:[new Ext.ux.plugins.PageComboResizer()]//动�1�7�分页大射1�7
+		}),
+		listeners:{
+			rowdblclick :function(grid, rowIndex,e){
+				var record = grid.store.getAt(rowIndex);
+				grid.ownerCt.addWin.show();
+				if(grid.ownerCt.editButton.disabled)
+					grid.ownerCt.addWin.showDetail(record.data,false);
+				else
+					grid.ownerCt.addWin.showDetail(record.data,true);
+			}
+		}
+	});
+	
+	this.deleteConn = new Ext.data.Connection({
+		method:'post',
+		url:'../../dicType/delete.form'
+	});
+	
+	DicType.panel.superclass.constructor.call(this,{
+		layout:'border',
+		items:[this.gridPanel],
+		listeners:{
+			render:function(){
+				this.addWin = new DicType.Add.win();
+				this.query();
+				Utils.renderPrivilege();
+			}
+		}
+	});
+}
+Ext.extend(DicType.panel,Ext.Viewport,{
+	initSave:function(){
+		this.addWin.show();
+		this.addWin.initAdd();
+	},
+	initUpdate:function(){
+		var sm = this.gridPanel.getSelectionModel();
+		var record = sm.getSelections();
+		if(record.length ==0){
+			Utils.warn("请选择一条记录！");
+			return;
+		}
+		this.addWin.show();
+		this.addWin.initUpdate(record[0].data);
+	},
+	query:function(){
+		this.store.load({
+			parems:{
+				start:0,
+				limit:15
+			}
+		});
+	},
+	del:function(){
+		var sm = this.gridPanel.getSelectionModel();
+		var record = sm.getSelections();
+		if(record.length ==0){
+			Utils.warn("请选择一条记录！")
+			return;
+		}
+		var id  = record[0].data.id;
+		var conn = this.deleteConn;
+		Ext.MessageBox.confirm('系统提示', "是否删除<font color=red>'"+ record[0].data.id+"'</font>?", function(e) {
+			if (e == 'yes') {
+				Utils.request(conn,{
+					params:{
+						id:id
+					},
+					scope:this,
+					success:function(){
+						this.scope.query();
+						Utils.info("删除成功");
+					}
+				});
+			} 
+		}, this);
+	},
+	exportExcel:function(){
+		var vExportContent = this.gridPanel.getExcelXml();
+		if (Ext.isIE6 || Ext.isIE7 || Ext.isSafari || Ext.isSafari2	|| Ext.isSafari3) {
+			var fd = Ext.get('frmDummy');
+			if (!fd) {
+				fd = Ext.DomHelper.append(Ext.getBody(), {
+					tag : 'form',
+					method : 'post',
+					id : 'frmDummy',
+					action : '../../exportexcel.jsp',
+					target : '_blank',
+					name : 'frmDummy',
+					cls : 'x-hidden',
+					cn : [{
+						tag : 'input',
+						name : 'exportContent',
+						id : 'exportContent',
+						type : 'hidden'
+					}]
+				}, true);
+			}
+			fd.child('#exportContent').set({value : vExportContent});
+			fd.dom.submit();
+		} else {
+			document.location = 'data:application/vnd.ms-excel;base64,'+ Base64.encode(vExportContent);
+		}
+	}
+});	
+
+Ext.onReady(function(){
+	Ext.QuickTips.init();
+	Ext.BLANK_IMAGE_URL='../../resources/images/default/s.gif';
+	var dicType = new DicType.panel();
+})

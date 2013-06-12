@@ -1,0 +1,43 @@
+/**/
+
+#container {
+	width: 805px;
+	height: 422px;
+	border: 12px solid #FFFFFF;
+	margin: -211px auto auto -402px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: transparent url(../images/background/login.png) no-repeat scroll 0 0;
+}
+
+#container span.title {
+    position: absolute;
+    left: 350px;
+    top: 25px;
+    font-size: 2em;
+    font-weight: bold;
+    font-family: ¡• È;
+    color: #0754A7;
+}
+
+#login-panel {
+	margin-left:385px;
+	margin-top:138px;
+	width: 280px;
+}
+
+.ext-ie #login-panel {
+   position: absolute;
+}
+
+.x-panel-mc {
+    background-color: #E8E8E8 !important;
+}
+
+.btn-login {
+	background: url(../icons/btn_login.png) 0 0 no-repeat !important;
+}
+.ext-ie6 .btn-login {
+	background: url(../icons/gif/btn_login.gif) 0 0 no-repeat !important;
+}

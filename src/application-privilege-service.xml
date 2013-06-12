@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<context:property-placeholder location="classpath:db_config.properties" />
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.richie" />
+	<!-- Data Source by c3p0 
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="acquireIncrement" value="${jdbc.prototype}" />
+		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+	</bean>
+-->
+	<!--druid 连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+
+		<!-- 初始化连接大小 -->
+		<property name="initialSize" value="0" />
+		<!-- 连接池最大使用连接数量 -->
+		<property name="maxActive" value="20" />
+		<!-- 连接池最大空闲 -->
+		<property name="maxIdle" value="20" />
+		<!-- 连接池最小空闲 -->
+		<property name="minIdle" value="0" />
+		<!-- 获取连接最大等待时间 -->
+		<property name="maxWait" value="60000" />
+
+		<!-- 
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="33" />
+		 -->
+
+		<property name="validationQuery" value="${validationQuery}" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<property name="testWhileIdle" value="true" />
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="25200000" />
+	
+		<!-- 打开removeAbandoned功能 -->
+		<property name="removeAbandoned" value="true" />
+		<!-- 1800秒，也就是30分钟 -->
+		<property name="removeAbandonedTimeout" value="1800" />
+		<!-- 关闭abanded连接时输出错误日志 -->
+		<property name="logAbandoned" value="true" /> 
+	
+		<!-- 监控数据库 -->
+		<!-- 
+		<property name="filters" value="stat" />
+		 -->
+		<property name="filters" value="stat,log4j" />
+	</bean>
+	<!-- Transaction Manager -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- For SELECT -->
+	<!--
+		@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	-->
+	<!-- For Update -->
+	<!--
+		@Transactional or @Transactional(rollbackFor=Exception.class) to
+		public method
+	-->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<!-- For iBatis -->
+	
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" /> 
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:sqlMapConfig.xml" />
+		<property name="lobHandler" ref="lobHandler" />
+	</bean>
+	<!-- 面向切面编程实例   开始=== -->
+	<aop:aspectj-autoproxy  /> 
+	
+<!-- 面向切面编程实例   结束-->
+
+	<bean id="logExe" class="com.richie.framework.service.LogExAop">
+	</bean>
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- JDBC Template -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- View Resolver for JSON View -->
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location" value="classpath:views.xml"></property>
+	</bean>
+	
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="maxUploadSize" value="10485760" />
+	</bean>
+	
+    <bean id="securityFilter" class="com.richie.framework.filter.SecurityFilter">
+    	<property name="userService" ref="userService"></property>
+    	<property name="logonUrl" value="${login.page}"></property>
+    </bean>
+
+
+    <bean id="saveLogThread" class="com.richie.framework.service.SaveLogThread">
+    </bean>
+   <!--  <bean id="userService" class="com.richie.privilege.service.UserService">
+    	<property name="usersDAO" ref="usersDAO"></property>
+    </bean>
+    -->
+    <bean id="privilegeService" class="com.richie.privilege.service.PrivilegeService">
+    	<property name="menuDAO" ref="menuDAO"></property>
+    </bean>
+    <bean id="menuService" class="com.richie.privilege.service.MenuService">
+    	<property name="menuDAO" ref="menuDAO"></property>
+    </bean>
+    <bean id="roleService" class="com.richie.privilege.service.RoleService">
+    	<property name="roleDAO" ref="roleDAO"></property>
+    </bean>
+</beans>

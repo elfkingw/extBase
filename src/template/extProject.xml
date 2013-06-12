@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EclipseWork>
+    <wizard>
+        <title>生成pojo</title>
+
+		<model-page type="table" required="true">
+			<description>选择你要生成的表</description>
+		</model-page>
+
+        <component-page >
+      	 <group checkbox="createPojo" >
+      	 	<checkbox name="createPojo" label="生成pojo类、ibatis配置文件" />
+        	<description>pojo文件路径</description>
+			<container name="pojoPackage" label="pojo文件输出路径: " type="package" >
+			</container>
+        	<description>sqlMap文件路径</description>
+			<container name="sqlMapPackage" label="sqlMap文件输出路径: " type="package" />
+			<description>service配置文件</description>
+			<file name="sqlMapConfig.xml" label="sqlMapConfig.xml: " required="true" value=""/>
+		</group>
+		<group checkbox="createJava" >
+			<checkbox name="createJava" label="生成dao、service、handler类" />
+        	<description>dao文件路径</description>
+			<container name="daoPackage" label="dao文件输出路径: " type="package" />
+        	<description>service文件路径</description>
+			<container name="servicePackage" label="service文件输出路径: " type="package" />
+        	<description>web文件路径</description>
+			<container name="webPackage" label="web文件输出路径: " type="package" />
+		</group>
+			<group checkbox="createSpring" >
+			<checkbox name="createSpring" label="生成service、handler spring配置" />
+        	<description>service配置文件</description>
+			<file name="spring-services.xml" label="spring-services.xml： " required="true" value=""/>
+        	<description>service文件路径</description>
+			<file name="spring_mvc.xml" label="spring_mvc.xml: " required="true" value=""/>
+		</group>
+		<group checkbox="createPage" >	
+			<checkbox name="createPage" label="生成前台页面html和js脚本" />
+        	<description>html 页面 文件路径</description>
+			<container name="htmlPackage" label="html 文件输出路径: " type="folder" />
+        	<description>js 脚本 文件路径</description>
+			<container name="jsPackage" label="js 文件输出路径: " type="folder" />
+		</group>
+	     </component-page>
+        <output>
+         	<template component="pojo" expression="$stringUtils.capitaliseAll(${model.name})" velocity="templates/pojo.vm" extension="java" container="pojoPackage" >
+         		<condition variable="createPojo" value="true" />
+        	</template>
+        	<template component="sqlMap" expression="$stringUtils.capitaliseAll(${model.name})_SqlMap" velocity="templates/sqlMap.xml.vm" extension="xml" container="sqlMapPackage" >
+        		<condition variable="createPojo" value="true" />
+        	</template>
+        	<xml-update file="sqlMapConfig.xml">
+				<condition variable="createPojo" value="true" />
+				<sqlMap resource="${sqlMapPackage}.${stringUtils.capitaliseAll(${model.name})}_SqlMap.xml"/>
+			</xml-update>
+        	<template component="dao" expression="$stringUtils.capitaliseAll(${model.name})DAO" velocity="templates/dao.vm" extension="java" container="daoPackage" >
+        		<condition variable="createJava" value="true" />
+        	</template>
+        	<template component="service" expression="$stringUtils.capitaliseAll(${model.name})Service" velocity="templates/service.vm" extension="java" container="servicePackage" >
+        		<condition variable="createJava" value="true" />
+        	</template>
+        	<template component="web" expression="$stringUtils.capitaliseAll(${model.name})Handler" velocity="templates/web.vm" extension="java" container="webPackage" >
+        		<condition variable="createJava" value="true" />
+        	</template>
+        	<template component="html" expression="$stringUtils.uncapitaliseAll(${model.name})" velocity="templates/htmlPage.vm" extension="html" container="htmlPackage" >
+        		<condition variable="createPage" value="true" />
+        	</template>
+        	<template component="listjs" expression="$stringUtils.uncapitaliseAll(${model.name})-panel" velocity="templates/list.js.vm" extension="js" container="jsPackage" >
+        		<condition variable="createPage" value="true" />
+        	</template>
+        	<template component="addjs" expression="$stringUtils.uncapitaliseAll(${model.name})-add-win" velocity="templates/add.js.vm" extension="js" container="jsPackage" >
+        		<condition variable="createPage" value="true" />
+        	</template>
+        	
+        	<xml-update file="spring-services.xml">
+				<condition variable="createSpring" value="true" />
+				<bean id="$stringUtils.uncapitaliseAll(${model.name})Service" class="${servicePackage}.$stringUtils.capitaliseAll(${model.name})Service" >
+					<property name="$stringUtils.uncapitaliseAll(${model.name})DAO"><ref bean="$stringUtils.uncapitaliseAll(${model.name})DAO"/></property>
+				</bean>
+			</xml-update>
+			
+        	<xml-update file="spring_mvc.xml">
+				<condition variable="createSpring" value="true" />
+				  <bean name="/$stringUtils.uncapitaliseAll(${model.name})/*"  class="${webPackage}.$stringUtils.capitaliseAll(${model.name})Handler">
+    				<property name="$stringUtils.uncapitaliseAll(${model.name})Service"><ref bean="$stringUtils.uncapitaliseAll(${model.name})Service"/></property>
+    				<property name="methodNameResolver" ref="internalPathMethodNameResolver"></property>
+   				 </bean>
+			</xml-update>
+		</output>
+    </wizard>
+</EclipseWork>
+

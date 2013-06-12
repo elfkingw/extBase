@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE abatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Abator for iBATIS Configuration 1.0//EN" "http://ibatis.apache.org/dtd/abator-config_1_0.dtd" >
+<abatorConfiguration >
+  <abatorContext >
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/extBase" userId="root" password="sa" >
+    <classPathEntry
+		location="D:\eworkspace\extBase\WebContent\WEB-INF\lib\mysql-connector-java-5.0.6-bin.jar" />
+    </jdbcConnection>
+    <javaModelGenerator targetPackage="com.richie.privilege.domain" targetProject="extBase" />
+    <sqlMapGenerator targetPackage="com.richie.privilege.sqlMap" targetProject="extBase" />
+    <daoGenerator targetPackage="com.richie.privilege.dao" targetProject="extBase" type="GENERIC-CI" />
+    <table schema="extBase" tableName="roles" >
+    <generatedKey column="ID" sqlStatement="mysql" identity="true" />
+      <!--<columnOverride column="???" property="???" />-->
+    </table>
+  </abatorContext>
+</abatorConfiguration>

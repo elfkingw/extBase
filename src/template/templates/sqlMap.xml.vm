@@ -1,0 +1,256 @@
+#set($className = $stringUtils.capitaliseAll(${model.name}))
+#set($hasFk = false)
+#set($pkNum = 1)
+#foreach($f in $model.fields)
+#if($f.fk)
+	#set($hasFk = true)
+#end
+#end 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="$stringUtils.capitaliseAll(${model.name})">
+<!-- no pk-->
+#if(!$hasFk)
+ 	<resultMap id="$stringUtils.uncapitaliseAll(${model.name})Map" class="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" >
+#foreach($f in $model.fields)
+	 	<result column="$f.name" property="$stringUtils.uncapitaliseAll($f.name)" jdbcType="$f.type" /><!--${stringUtils.uncapitaliseAll($f.name)}_cnName-->
+#end 
+  	</resultMap>
+#end 
+<!-- has fk-->	
+#if($hasFk)
+ 	<resultMap id="$stringUtils.uncapitaliseAll(${model.name})Map" class="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" >
+#foreach($f in $model.fields)
+#if($f.fk)
+#if($pkNum==5)
+#foreach($f1 in $f.getFKTable().fields)
+	<result column="f.${f1.name}" property="${stringUtils.uncapitaliseAll($f.getFKTableName())}.${stringUtils.uncapitaliseAll($f1.name)}" jdbcType="$f1.type" />
+#end
+#elseif($pkNum==4)
+#foreach($f1 in $f.getFKTable().fields)
+	<result column="e.${f1.name}" property="${stringUtils.uncapitaliseAll($f.getFKTableName())}.${stringUtils.uncapitaliseAll($f1.name)}" jdbcType="$f1.type" />
+#end
+	#set($pkNum = 5)
+#elseif($pkNum==3)
+#foreach($f1 in $f.getFKTable().fields)
+	<result column="d.${f1.name}" property="${stringUtils.uncapitaliseAll($f.getFKTableName())}.${stringUtils.uncapitaliseAll($f1.name)}" jdbcType="$f1.type" />
+#end
+	#set($pkNum = 4)
+#elseif($pkNum==2)
+#foreach($f1 in $f.getFKTable().fields)
+	<result column="c.${f1.name}" property="${stringUtils.uncapitaliseAll($f.getFKTableName())}.${stringUtils.uncapitaliseAll($f1.name)}" jdbcType="$f1.type" />
+#end
+	#set($pkNum = 3)
+#elseif($pkNum==1)
+#foreach($f1 in $f.getFKTable().fields)
+	<result column="b.${f1.name}" property="${stringUtils.uncapitaliseAll($f.getFKTableName())}.${stringUtils.uncapitaliseAll($f1.name)}" jdbcType="$f1.type" />
+#end
+	#set($pkNum = 2)
+#end
+#else
+	 	<result column="$f.name" property="$stringUtils.uncapitaliseAll($f.name)" jdbcType="$f.type" /><!--${stringUtils.uncapitaliseAll($f.name)}_cnName-->
+#end
+#end 
+  	</resultMap>
+#end 
+  	#set($pkNum = 1)	
+<!--查询条件-->  	
+	<sql id="queryWhereCause">
+		<dynamic prepend="where">
+#foreach($f in $model.fields)  
+			<isNotEmpty prepend="and" property="$stringUtils.uncapitaliseAll($f.name)" >
+				a.$f.name =#$stringUtils.uncapitaliseAll($f.name):$f.type#
+			</isNotEmpty>
+#end
+		</dynamic>
+	</sql>
+<!--排序-->
+	<sql id="orderCause">
+		<isNotEmpty prepend=" " property="orderMap" >
+			order by a.$orderMap.sort$ $orderMap.dir$ 
+		</isNotEmpty>
+	</sql>	
+<!--缓存-->
+	<cacheModel id="$stringUtils.uncapitaliseAll(${model.name})-cache" type ="LRU" readOnly="false" serialize="true">
+		<flushInterval hours="24"/>
+		<flushOnExecute statement="${stringUtils.capitaliseAll(${model.name})}.delete"/> 
+		<flushOnExecute statement="${stringUtils.capitaliseAll(${model.name})}.update"/>
+		<flushOnExecute statement="${stringUtils.capitaliseAll(${model.name})}.insert"/>
+		<property name="cache-size" value="500" />
+	</cacheModel>
+<!--分页查询--> 
+#if(!$hasFk)	
+	<select id="queryForPage" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})"  resultMap="$stringUtils.uncapitaliseAll(${model.name})Map" cacheModel="${stringUtils.uncapitaliseAll(${model.name})}-cache">
+		select *  from ${model.name} a
+		<include refid="${className}.queryWhereCause"/>
+		<include refid="${className}.orderCause"/>
+			limit #start# ,#limit#   
+	</select>
+#end
+
+#if($hasFk)
+	<select id="queryForPage" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" resultMap="$stringUtils.uncapitaliseAll(${model.name})Map" cacheModel="${stringUtils.uncapitaliseAll(${model.name})}-cache">
+		select $sqlTool.genSelectSql($model.fields,"a") 
+#foreach($f in $model.fields)
+#if($f.fk)
+#if($pkNum==5)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"f") 	
+#elseif($pkNum==4)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"e") 
+		#set($pkNum = 5)	
+#elseif($pkNum==3)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"d") 
+		#set($pkNum = 4)
+#elseif($pkNum==2)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"c") 
+		#set($pkNum = 3)	
+#elseif($pkNum==1)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"b") 
+		#set($pkNum = 2)	
+#end
+#end
+#end
+	#set($pkNum = 1)
+from ${model.name} a
+#foreach($f in $model.fields)
+#if($f.fk)
+#if($pkNum==5)
+		left join $f.getFKTable().name f on a.$f.name = f.$f.getFKColumn().name
+#elseif($pkNum==4)
+		left join $f.getFKTable().name e on a.$f.name = e.$f.getFKColumn().name
+		#set($pkNum = 5)	
+#elseif($pkNum==3)
+		left join $f.getFKTable().name d on a.$f.name = d.$f.getFKColumn().name
+		#set($pkNum = 4)
+#elseif($pkNum==2)
+		left join $f.getFKTable().name c on a.$f.name = c.$f.getFKColumn().name
+		#set($pkNum = 3)	
+#elseif($pkNum==1)
+		left join $f.getFKTable().name b on a.$f.name = b.$f.getFKColumn().name
+		#set($pkNum = 2)	
+#end
+#end
+#end
+		<include refid="${className}.queryWhereCause"/>
+		<include refid="${className}.orderCause"/>
+			limit #start# ,#limit#   
+	</select>
+#end
+	#set($pkNum = 1)
+<!--删除--> 	
+#foreach($f in $model.fields)
+#if($stringUtils.uncapitaliseAll($f.name)=="id")
+	<delete id="delete" parameterClass="$f.javaType">
+		delete  from ${model.name} where id = #id#
+	</delete>	
+#end  
+#end
+<!--查询总数--> 	
+	<select id="queryCount" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" resultClass="java.lang.Integer">
+		<![CDATA[
+			select count(*) from ${model.name}
+		]]>
+		<include refid="${className}.queryWhereCause"/>
+	</select>
+	
+<!--查询--> 
+#if(!$hasFk)	
+	<select id="query" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})"  resultMap="$stringUtils.uncapitaliseAll(${model.name})Map" cacheModel="${stringUtils.uncapitaliseAll(${model.name})}-cache">
+		select *  from ${model.name} a
+		<include refid="${className}.queryWhereCause"/>
+		<include refid="${className}.orderCause"/>
+	</select>
+#end
+
+#if($hasFk)
+	<select id="query" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" resultMap="$stringUtils.uncapitaliseAll(${model.name})Map" cacheModel="${stringUtils.uncapitaliseAll(${model.name})}-cache">
+		select $sqlTool.genSelectSql($model.fields,"a") 
+#foreach($f in $model.fields)
+#if($f.fk)
+#if($pkNum==5)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"f") 	
+#elseif($pkNum==4)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"e") 
+		#set($pkNum = 5)	
+#elseif($pkNum==3)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"d") 
+		#set($pkNum = 4)
+#elseif($pkNum==2)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"c") 
+		#set($pkNum = 3)	
+#elseif($pkNum==1)
+		, $sqlTool.genSelectSql($f.getFKTable().fields,"b") 
+		#set($pkNum = 2)	
+#end
+#end
+#end
+	#set($pkNum = 1)
+from ${model.name} a
+#foreach($f in $model.fields)
+#if($f.fk)
+#if($pkNum==5)
+		left join $f.getFKTable().name f on a.$f.name = f.$f.getFKColumn().name
+#elseif($pkNum==4)
+		left join $f.getFKTable().name e on a.$f.name = e.$f.getFKColumn().name
+		#set($pkNum = 5)	
+#elseif($pkNum==3)
+		left join $f.getFKTable().name d on a.$f.name = d.$f.getFKColumn().name
+		#set($pkNum = 4)
+#elseif($pkNum==2)
+		left join $f.getFKTable().name c on a.$f.name = c.$f.getFKColumn().name
+		#set($pkNum = 3)	
+#elseif($pkNum==1)
+		left join $f.getFKTable().name b on a.$f.name = b.$f.getFKColumn().name
+		#set($pkNum = 2)	
+#end
+#end
+#end
+		<include refid="${className}.queryWhereCause"/>
+		<include refid="${className}.orderCause"/>
+	</select>
+#end
+	#set($pkNum = 1)
+
+
+<!--修改--> 	
+ 	<update id="update$stringUtils.capitaliseAll(${model.name})" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" >
+   		update ${model.name}
+    	<dynamic prepend="set" >
+#foreach($f in $model.fields)  
+#if($f.name!="id" ||$f.name!="ID")
+#if($f.fk)
+			<isNotNull prepend="," property="$stringUtils.uncapitaliseAll($f.getFKTable().name)" >
+				$f.name =#${stringUtils.uncapitaliseAll($f.getFKTable().name)}.$stringUtils.uncapitaliseAll($f.getFKColumn().name):$f.type#
+			</isNotNull>
+#else
+			<isNotNull prepend="," property="$stringUtils.uncapitaliseAll($f.name)" >
+				$f.name =#$stringUtils.uncapitaliseAll($f.name):$f.type#
+			</isNotNull>
+#end
+#end
+#end      
+    	</dynamic>
+    	where ID = #id:INTEGER#
+	</update>
+<!--修改--> 
+	<update id="update" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" >
+  		update ${model.name}  $sqlTool.genUpdateSql($model.fields)  where ID = #id:INTEGER#
+	</update>
+<!--插入--> 
+	<insert id="insert" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" >
+    	insert into ${model.name}  $sqlTool.genInsertSql($model.fields)
+     	 <selectKey keyProperty="id" resultClass="java.lang.Integer">
+    		  SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+<!--根据主建查询--> 
+	<select id="selectByPrimaryKey" resultMap="$stringUtils.uncapitaliseAll(${model.name})Map" parameterClass="$pojoPackage.$stringUtils.capitaliseAll(${model.name})" >
+  	 	select * from $model.name where ID = #id:BIGINT#
+	</select>
+<!--根据主建删除--> 
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+  		delete from $model.name where ID = #id:INTEGER#
+	</delete> 
+
+</sqlMap>

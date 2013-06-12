@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Menu">
+ <resultMap id="menuMap" class="com.richie.privilege.domain.Menu" >
+    <result column="ID" property="id" jdbcType="BIGINT" />
+    <result column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PARENT_MENU_ID" property="parentMenuId" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="isLeaf" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="order" jdbcType="INTEGER" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="IS_SYSTEM" property="isSystem" jdbcType="VARCHAR" />
+  </resultMap>
+ <resultMap id="menuAllMap" class="com.richie.privilege.domain.Menu" >
+    <result column="ID" property="id" jdbcType="BIGINT" />
+    <result column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PARENT_MENU_ID" property="parentMenuId" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="isLeaf" jdbcType="VARCHAR" />
+    <result column="ORDER_NUM" property="order" jdbcType="INTEGER" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+    <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="IS_SYSTEM" property="isSystem" jdbcType="VARCHAR" />
+    <result column="parent_menu" property="parentMenuName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+ <resultMap id="menuTree" class="com.richie.privilege.domain.MenuTree" >
+    <result column="MENU_ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="text" jdbcType="VARCHAR" />
+    <result column="ICON" property="iconCls" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="leafStr" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="qtip" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+ <resultMap id="checkMenuTree" class="com.richie.privilege.domain.CheckMenuTree" >
+    <result column="MENU_ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="text" jdbcType="VARCHAR" />
+    <result column="ICON" property="iconCls" jdbcType="VARCHAR" />
+    <result column="IS_LEAF" property="leafStr" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="qtip" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="queryWhereCause">
+	  <dynamic prepend="where">
+		  <isNotEmpty prepend="and" property="menuId" >
+       		 m.MENU_ID = #menuId:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="name" >
+	        m.NAME like '%$name$%'
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="parentMenuId" >
+	        m.PARENT_MENU_ID = #parentMenuId:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="url" >
+	        m.URL = #url:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="icon" >
+	        m.ICON = #icon:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="description" >
+	        m.DESCRIPTION = #description:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="menuType" >
+	        m.MENU_TYPE = #menuType:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="status" >
+	        m.STATUS = #status:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="isSystem" >
+	        m.IS_SYSTEM = #isSystem:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="mId" >
+	        (m.MENU_ID = #mId# or m.PARENT_MENU_ID=#mId#)
+	      </isNotEmpty>
+		</dynamic>
+  </sql>
+<select id="queryForPage" parameterClass="com.richie.privilege.domain.Menu"  resultMap="menuAllMap">
+	select m.*,m1.name as parent_menu from menus m left join menus m1 on m.parent_menu_id = m1.menu_id
+	<include refid="Menu.queryWhereCause"/>
+		limit #start# ,#limit#   
+</select>
+	
+<delete id="delete" parameterClass="java.lang.Integer">
+	delete from menus where id = #id#
+</delete>
+
+
+<select id="queryCount" parameterClass="com.richie.privilege.domain.Menu" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(*) from menus m
+	]]>
+	<include refid="Menu.queryWhereCause"/>
+</select>
+
+<select id="query" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select * from users 
+</select>
+
+
+ <update id="updateMenu" parameterClass="com.richie.privilege.domain.Menu" >
+    update menus
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="menuId" >
+        MENU_ID = #menuId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="parentMenuId" >
+        PARENT_MENU_ID = #parentMenuId:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="url" >
+        URL = #url:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="icon" >
+        ICON = #icon:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="description" >
+        DESCRIPTION = #description:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="menuType" >
+        MENU_TYPE = #menuType:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="order" >
+        ORDER_NUM = #order:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isSystem" >
+        IS_SYSTEM = #isSystem:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+</update>
+<update id="update" parameterClass="com.richie.privilege.domain.Menu" >
+    update menus set  MENU_ID = #menuId:VARCHAR#, NAME = #name:VARCHAR#, PARENT_MENU_ID = #parentMenuId:VARCHAR#,
+    URL = #url:VARCHAR#, ICON = #icon:VARCHAR#, DESCRIPTION = #description:VARCHAR#, MENU_TYPE = #menuType:VARCHAR#,IS_LEAF=#isLeaf#,
+    STATUS = #status:VARCHAR#,ORDER_NUM = #order:VARCHAR#,IS_SYSTEM = #isSystem:VARCHAR#   where ID = #id:INTEGER#
+</update>
+<insert id="insert" parameterClass="com.richie.privilege.domain.Menu" >
+    insert into menus (MENU_ID, NAME, PARENT_MENU_ID, URL, ICON, DESCRIPTION, MENU_TYPE, IS_LEAF,ORDER_NUM, STATUS,
+      IS_SYSTEM)
+    values (#menuId:VARCHAR#, #name:VARCHAR#, #parentMenuId:VARCHAR#, #url:VARCHAR#, #icon:VARCHAR#,
+      #description:VARCHAR#, #menuType:VARCHAR#,#isLeaf:VARCHAR#,#order:VACHAR#, #status:VARCHAR#, #isSystem:VARCHAR#)
+      <selectKey keyProperty="id" resultClass="java.lang.Integer">
+    	  SELECT LAST_INSERT_ID()
+    </selectKey>
+</insert>	
+
+<select id="selectByPrimaryKey" resultMap="menuMap" parameterClass="com.richie.privilege.domain.Menu" >
+   select ID, MENU_ID, NAME, PARENT_MENU_ID, URL, ICON, DESCRIPTION, MENU_TYPE, IS_LEAF,ORDER_NUM, STATUS, IS_SYSTEM
+    from menus
+    where ID = #id:BIGINT#
+</select>
+ 
+<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    delete from menus
+    where ID = #id:INTEGER#
+</delete> 
+
+<select id ="getPrivilegeMenu" resultMap="menuMap" parameterClass="java.lang.Integer">
+	select * from menus where menu_id in(select distinct m.menu_id from menus m,roles r,roles_menu_relation rm, users_roles_relation ur 
+  where  ur.user_id =#userId# and ur.role_id = rm.role_id and m.menu_id = rm.menu_id and m.menu_type='01')  order by order_num
+</select>
+
+<select id ="getTopMenu" resultMap="menuMap" parameterClass="java.lang.Integer">
+	select * from menus where menu_id in(select m.menu_id  from menus m,roles_menu_relation rm, users_roles_relation ur 
+  where  ur.user_id =#userId#  and ur.role_id = rm.role_id and m.menu_id = rm.menu_id and (m.parent_menu_id is null or m.parent_menu_id = '')
+  and m.menu_type='01' ) order by order_num
+</select>
+
+<select id ="getChildMenu" resultMap="menuTree" parameterClass="java.util.HashMap">
+	select m.MENU_ID, m.NAME, m.URL, m.ICON, m.DESCRIPTION ,m.is_leaf from menus m where m.MENU_ID in(select distinct m.MENU_ID from menus m,roles_menu_relation rm, users_roles_relation ur 
+  where  ur.user_id =#userId#  and ur.role_id = rm.role_id and m.menu_id = rm.menu_id and m.parent_menu_id = #parentId#
+    and m.menu_type='01')  order by m.order_num
+</select>
+
+<select id ="getCheckChildMenu" resultMap="checkMenuTree" parameterClass="java.util.HashMap">
+	select MENU_ID, NAME, URL, ICON, DESCRIPTION ,case when MENU_TYPE='02' then '01' else '02' end as IS_LEAF from menus 
+	 <dynamic prepend="where">
+	      <isEqual prepend="and" property="parentId" compareValue="0">
+	      	 parent_menu_id ='' or parent_menu_id is null
+	      </isEqual>
+	      <isNotEqual prepend="and" property="parentId" compareValue="0">
+	      	parent_menu_id = #parentId#
+	      </isNotEqual>
+	 </dynamic>
+</select>
+
+<select id ="getTreeMenu" resultMap="menuTree" parameterClass="java.util.HashMap">
+	select MENU_ID, NAME, URL, ICON, DESCRIPTION ,IS_LEAF from menus 
+	 <dynamic prepend="where">
+	      <isEqual prepend="and" property="parentId" compareValue="0">
+	      	 parent_menu_id ='' or parent_menu_id is null
+	      </isEqual>
+	      <isNotEqual prepend="and" property="parentId" compareValue="0">
+	      	parent_menu_id = #parentId#
+	      </isNotEqual>
+	 </dynamic>
+	 order by order_num
+</select>
+
+<select id="getParentMenu" resultClass="java.util.HashMap" parameterClass="java.util.HashMap">
+	select m.menu_id as id ,m.name as value from menus  m where m.menu_type='01'
+	<isNotEmpty prepend ="and" property="name">
+		m.name like  '%$name$%'
+	</isNotEmpty>
+</select>
+
+<delete id="deleteMenuRole" parameterClass="java.lang.Integer">
+	delete from roles_menu_relation where menu_id in (select menu_id from menus where id=#menuId#)
+</delete>
+</sqlMap>

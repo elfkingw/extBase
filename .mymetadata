@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="extBase"
+  id="myeclipse.1268134951056"
+  context-root="/extBase"
+  j2ee-spec="1.4"
+  archive="extBase.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebContent" />
+  </attributes>
+</project-module>
+

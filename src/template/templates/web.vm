@@ -1,0 +1,154 @@
+#set($domainClass = $stringUtils.capitaliseAll(${model.name}))
+#set($domainName = $stringUtils.uncapitaliseAll(${model.name}))
+package $package;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.richie.framework.DateUtils;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+import org.springframework.web.servlet.ModelAndView;
+
+import com.richie.framework.web.BaseHandler;
+import $pojoPackage.${domainClass};
+import $servicePackage.${domainClass}Service;
+import com.richie.util.SqlUtil;
+/**
+ * 
+ * @author wanghua
+ * Mar 11, 201011:20:12 AM
+ */
+public class ${domainClass}Handler extends BaseHandler{
+	private ${domainClass}Service ${domainName}Service;
+	
+	public void set${domainClass}Service(${domainClass}Service ${domainName}Service) {
+		this.${domainName}Service = ${domainName}Service;
+	}
+
+	/**
+	 * ∑÷“≥≤È—Ø
+	 * @author wanghua
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView list(HttpServletRequest request,HttpServletResponse response) {
+		String start = request.getParameter("start");
+		String limit = request.getParameter("limit");
+		ModelAndView mv = this.getSuccessModelView();
+		try {
+			${domainClass} ${domainName} = this.formToObject(request);
+			${domainName}.setLimit(Integer.valueOf(limit == null?"15":limit));
+			${domainName}.setStart(Integer.valueOf(start==null?"0":start));
+			List<${domainClass}> list  = ${domainName}Service.list(${domainName});
+			int count =  ${domainName}Service.getCount(${domainName});
+			mv.addObject("result",list);
+			mv.addObject("total",count);
+		} catch (Exception e) {
+			mv = this.getErrorModelView();
+			logger.error("∑÷“≥≤È—Ø ß∞‹£°",e);
+			return mv;
+		}
+		return mv;
+	}
+	/**
+	 * ≤È—Ø
+	 * @author wanghua
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView query(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mv = this.getSuccessModelView();
+		try {
+			${domainClass} ${domainName} = new ${domainClass}();
+			List<${domainClass}> list  = ${domainName}Service.query(${domainName});
+			mv.addObject("result",list);
+		} catch (Exception e) {
+			mv = this.getErrorModelView();
+			logger.error("≤È—Ø ß∞‹£°",e);
+			return mv;
+		}
+		return mv;
+	}
+	/**
+	 * –¬‘ˆªÚ–ﬁ∏ƒ
+	 * @author wanghua
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView saveOrUpdate(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mv = this.getSuccessModelView();
+		try {
+			${domainClass} ${domainName} = this.formToObject(request);
+			if(${domainName}.getId() != null && ${domainName}.getId()!= 0){
+				${domainName}Service.update(${domainName});
+			}else{
+				${domainName}Service.save(${domainName});
+			}
+		} catch (Exception e) {
+			mv = this.getErrorMessageView("±£¥Ê ß∞‹");
+			logger.error("±£¥Ê ß∞‹£°",e);
+		}
+		return mv;
+	}
+	/**
+	 * …æ≥˝
+	 * @author wanghua
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView delete(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mv = this.getSuccessModelView();
+		String id = request.getParameter("id");
+		try {
+			${domainName}Service.delete(Integer.valueOf(id));
+		} catch (Exception e) {
+			mv = this.getErrorMessageView("…æ≥˝ ß∞‹");
+			logger.error("…æ≥˝ ß∞‹£°",e);
+		}
+		return mv;
+	}
+	/**
+	 * 
+	 *@author wanghua
+	 * @param request
+	 * @return
+	 */
+	private ${domainClass} formToObject(HttpServletRequest request)throws Exception{
+		${domainClass} ${domainName} = new ${domainClass}();
+#foreach($f in $model.fields)
+		String $stringUtils.uncapitaliseAll($f.name) =request.getParameter("$stringUtils.uncapitaliseAll($f.name)");
+		if($stringUtils.uncapitaliseAll($f.name)!=null && !"".equals($stringUtils.uncapitaliseAll($f.name))){//${stringUtils.uncapitaliseAll($f.name)}_cnName
+	#if($f.fk)
+		${domainName}.$stringUtils.setMethodName($f.getFKTableName())(new $stringUtils.capitaliseAll($f.getFKTableName())(${stringUtils.getJavaTypeStr($f.javaType)}.valueOf($stringUtils.uncapitaliseAll($f.name))));
+	#elseif($stringUtils.getJavaTypeStr($f.javaType)=="Integer"||$stringUtils.getJavaTypeStr($f.javaType)=="Double")
+		${domainName}.$stringUtils.setMethodName($f.name)(${stringUtils.getJavaTypeStr($f.javaType)}.valueOf($stringUtils.uncapitaliseAll($f.name)));
+	#elseif($stringUtils.getJavaTypeStr($f.javaType)=="Timestamp")
+		${domainName}.$stringUtils.setMethodName($f.name)(DateUtils.parseTsDate($stringUtils.uncapitaliseAll($f.name)));
+	#elseif($stringUtils.getJavaTypeStr($f.javaType)=="Date")
+		${domainName}.$stringUtils.setMethodName($f.name)(DateUtils.parseSqlDate($stringUtils.uncapitaliseAll($f.name)));
+	#else
+		${domainName}.$stringUtils.setMethodName($f.name)($stringUtils.uncapitaliseAll($f.name));
+	#end		
+	}
+#end
+	String dir = request.getParameter("dir");
+	String sort = request.getParameter("sort");
+	if(sort!=null && !"".equals(sort)){//≈≈–Ú
+		Map orderMap = new HashMap();
+		orderMap.put("dir", dir);
+		orderMap.put("sort", SqlUtil.getTableColumnName(sort));
+		${domainName}.setOrderMap(orderMap);
+	}	
+		return ${domainName};
+	}
+	
+	
+}

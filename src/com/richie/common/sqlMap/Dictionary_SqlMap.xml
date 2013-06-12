@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+
+<sqlMap namespace="Dictionary">
+<!-- no pk-->
+<!-- has fk-->	
+ 	<resultMap id="dictionaryMap" class="com.richie.common.domain.Dictionary" >
+	 	<result column="ID" property="id" jdbcType="int" /><!--id_cnName-->
+	<result column="b.ID" property="dicType.id" jdbcType="int" />
+	<result column="b.DIC_TYPE" property="dicType.dicType" jdbcType="varchar" />
+	<result column="b.DIC_NOTE" property="dicType.dicNote" jdbcType="varchar" />
+	 	<result column="DIC_CODE" property="dicCode" jdbcType="varchar" /><!--字典代码-->
+	 	<result column="DIC_NAME" property="dicName" jdbcType="varchar" /><!--字典名称-->
+	 	<result column="REMARK" property="remark" jdbcType="varchar" /><!--备注-->
+  	</resultMap>
+<!--查询条件-->  	
+	<sql id="queryWhereCause">
+		<dynamic prepend="where">
+			<isNotEmpty prepend="and" property="id" >
+				a.ID =#id:int#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dicType.id" >
+				a.DIC_TYPE =#dicType.id#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dicType.dicType" >
+				b.DIC_TYPE =#dicType.dicType#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dicCode" >
+				a.DIC_CODE =#dicCode:varchar#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dicName" >
+				a.DIC_NAME like '%$dicName$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="remark" >
+				a.REMARK =#remark:varchar#
+			</isNotEmpty>
+		</dynamic>
+	</sql>
+<!--排序-->
+	<sql id="orderCause">
+		<isNotEmpty prepend=" " property="orderMap" >
+			order by a.$orderMap.sort$ $orderMap.dir$ 
+		</isNotEmpty>
+		<isEmpty prepend=" " property="orderMap" >
+			order by a.DIC_TYPE
+		</isEmpty>
+	</sql>	
+<!--缓存-->
+	<cacheModel id="dictionary-cache" type ="LRU" readOnly="false" serialize="true">
+		<flushInterval hours="24"/>
+		<flushOnExecute statement="Dictionary.delete"/> 
+		<flushOnExecute statement="Dictionary.update"/>
+		<flushOnExecute statement="Dictionary.insert"/>
+		<property name="cache-size" value="500" />
+	</cacheModel>
+<!--分页查询--> 
+
+	<select id="queryForPage" parameterClass="com.richie.common.domain.Dictionary" resultMap="dictionaryMap" cacheModel="dictionary-cache">
+		select a.ID,a.DIC_TYPE,a.DIC_CODE,a.DIC_NAME,a.REMARK 
+		, b.ID,b.DIC_TYPE,b.DIC_NOTE 
+		from dictionary a
+		left join dic_type b on a.DIC_TYPE = b.ID
+		<include refid="Dictionary.queryWhereCause"/>
+		<include refid="Dictionary.orderCause"/>
+			limit #start# ,#limit#   
+	</select>
+<!--删除--> 	
+	<delete id="delete" parameterClass="java.lang.Integer">
+		delete  from dictionary where id = #id#
+	</delete>	
+<!--查询总数--> 	
+	<select id="queryCount" parameterClass="com.richie.common.domain.Dictionary" resultClass="java.lang.Integer">
+		<![CDATA[
+			select count(*) from dictionary a 
+		]]>
+		<include refid="Dictionary.queryWhereCause"/>
+	</select>
+	
+<!--查询--> 
+
+	<select id="query" parameterClass="com.richie.common.domain.Dictionary" resultMap="dictionaryMap" cacheModel="dictionary-cache">
+		select a.ID,a.DIC_TYPE,a.DIC_CODE,a.DIC_NAME,a.REMARK 
+		, b.ID,b.DIC_TYPE,b.DIC_NOTE 
+		from dictionary a
+		left join dic_type b on a.DIC_TYPE = b.ID
+				<include refid="Dictionary.queryWhereCause"/>
+		<include refid="Dictionary.orderCause"/>
+	</select>
+
+
+<!--修改--> 	
+ 	<update id="updateDictionary" parameterClass="com.richie.common.domain.Dictionary" >
+   		update dictionary
+    	<dynamic prepend="set" >
+			<isNotNull prepend="," property="id" >
+				ID =#id:int#
+			</isNotNull>
+			<isNotNull prepend="," property="dicType" >
+				DIC_TYPE =#dicType.id:int#
+			</isNotNull>
+			<isNotNull prepend="," property="dicCode" >
+				DIC_CODE =#dicCode:varchar#
+			</isNotNull>
+			<isNotNull prepend="," property="dicName" >
+				DIC_NAME =#dicName:varchar#
+			</isNotNull>
+			<isNotNull prepend="," property="remark" >
+				REMARK =#remark:varchar#
+			</isNotNull>
+    	</dynamic>
+    	where ID = #id:INTEGER#
+	</update>
+<!--修改--> 
+	<update id="update" parameterClass="com.richie.common.domain.Dictionary" >
+  		update dictionary   set DIC_TYPE=#dicType.id:int# , DIC_CODE=#dicCode:varchar# , DIC_NAME=#dicName:varchar# , REMARK=#remark:varchar#  where ID = #id:INTEGER#
+	</update>
+<!--插入--> 
+	<insert id="insert" parameterClass="com.richie.common.domain.Dictionary" >
+    	insert into dictionary   ( DIC_TYPE , DIC_CODE , DIC_NAME , REMARK) values  ( #dicType.id:int# , #dicCode:varchar#  , #dicName:varchar#  , #remark:varchar# )
+     	 <selectKey keyProperty="id" resultClass="java.lang.Integer">
+    		  SELECT LAST_INSERT_ID()
+    	</selectKey>
+	</insert>
+<!--根据主建查询--> 
+	<select id="selectByPrimaryKey" resultMap="dictionaryMap" parameterClass="com.richie.common.domain.Dictionary" >
+  	 	select * from dictionary where ID = #id:BIGINT#
+	</select>
+<!--根据主建删除--> 
+	<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+  		delete from dictionary where ID = #id:INTEGER#
+	</delete> 
+
+</sqlMap>

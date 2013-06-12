@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserInfo">
+ <resultMap id="userMap" class="com.richie.privilege.domain.Users" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="CNNAME" property="cnname" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="STATION_CODE" property="stationCode" jdbcType="VARCHAR" />
+    <result column="STATION_PWD" property="stationPwd" jdbcType="VARCHAR" />
+    <result column="DEFAULT_SKILL" property="defaultSkill" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CELL" property="cell" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="LAST_LOGIN_TIME" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="IS_SYSTEM" property="isSystem" jdbcType="VARCHAR" />
+  </resultMap>
+ <resultMap id="userSimpleMap" class="com.richie.privilege.domain.Users" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="CNNAME" property="cnname" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="queryWhereCause">
+	  <dynamic prepend="where">
+			<isNotEmpty prepend="and" property="userName" >
+	        USER_NAME = #userName:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="cnname" >
+	        CNNAME like '%$cnname$%'
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="password" >
+	        PASSWORD = #password:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="stationCode" >
+	        STATION_CODE = #stationCode:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="stationPwd" >
+	        STATION_PWD = #stationPwd:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="defaultSkill" >
+	        DEFAULT_SKILL = #defaultSkill:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="sex" >
+	        SEX = #sex:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="birthday" >
+	        BIRTHDAY = #birthday:TIMESTAMP#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="email" >
+	        EMAIL = #email:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="cell" >
+	        CELL = #cell:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="createTime" >
+	        CREATE_TIME = #createTime:TIMESTAMP#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="lastLoginTime" >
+	        LAST_LOGIN_TIME = #lastLoginTime:TIMESTAMP#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="status" >
+	        STATUS = #status:VARCHAR#
+	      </isNotEmpty>
+	      <isNotEmpty prepend="and" property="isSystem" >
+	        IS_SYSTEM = #isSystem:VARCHAR#
+	      </isNotEmpty>
+		</dynamic>
+  </sql>
+<select id="queryForPage" parameterClass="com.richie.privilege.domain.Users"  resultMap="userMap">
+	select * from users  
+	<include refid="UserInfo.queryWhereCause"/>
+		limit #start# ,#limit#   
+</select>
+
+
+
+<select id="queryCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(*) from users
+	]]>
+</select>
+
+<select id="query" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+	select * from users 
+</select>
+<select id="queryAll"  resultMap="userSimpleMap">
+	select * from users 
+</select>
+
+<select id="selectByUserName" parameterClass="java.lang.String" resultMap="userMap">
+	select * from users where USER_NAME = #userName#
+</select>
+
+ <update id="update" parameterClass="com.richie.privilege.domain.Users" >
+    update users
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="userName" >
+        USER_NAME = #userName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="cnname" >
+        CNNAME = #cnname:VARCHAR#
+      </isNotNull> 
+      <isNotNull prepend="," property="password" >
+        PASSWORD = #password:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="stationCode" >
+        STATION_CODE = #stationCode:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="stationPwd" >
+        STATION_PWD = #stationPwd:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="defaultSkill" >
+        DEFAULT_SKILL = #defaultSkill:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="sex" >
+        SEX = #sex:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="birthday" >
+        BIRTHDAY = #birthday:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="email" >
+        EMAIL = #email:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="cell" >
+        CELL = #cell:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createTime" >
+        CREATE_TIME = #createTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="lastLoginTime" >
+        LAST_LOGIN_TIME = #lastLoginTime:TIMESTAMP#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        STATUS = #status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isSystem" >
+        IS_SYSTEM = #isSystem:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+</update>
+  
+<insert id="insert" parameterClass="com.richie.privilege.domain.Users" >
+    insert into users ( USER_NAME, CNNAME, PASSWORD, STATION_CODE, STATION_PWD, DEFAULT_SKILL,
+      SEX, BIRTHDAY, EMAIL, CELL, CREATE_TIME, LAST_LOGIN_TIME, STATUS, IS_SYSTEM)
+    values ( #userName:VARCHAR#, #cnname:VARCHAR#, #password:VARCHAR#,
+      #stationCode:VARCHAR#, #stationPwd:VARCHAR#, #defaultSkill:VARCHAR#, #sex:VARCHAR#,
+      #birthday:TIMESTAMP#, #email:VARCHAR#, #cell:VARCHAR#, #createTime:TIMESTAMP#,
+      #lastLoginTime:TIMESTAMP#, #status:VARCHAR#, #isSystem:VARCHAR#)
+      <selectKey keyProperty="id" resultClass="java.lang.Integer">
+    	  SELECT LAST_INSERT_ID()
+    </selectKey>
+</insert>	
+
+<select id="selectByPrimaryKey" resultMap="userMap" parameterClass="com.richie.privilege.domain.Users" >
+    select ID, USER_NAME, CNNAME, PASSWORD, STATION_CODE, STATION_PWD, DEFAULT_SKILL, SEX, BIRTHDAY,
+      EMAIL, CELL, CREATE_TIME, LAST_LOGIN_TIME, STATUS, IS_SYSTEM
+    from users
+    where ID = #id:INTEGER#
+</select>
+ 
+<delete id="deleteByPrimaryKey" parameterClass="java.lang.Integer" >
+    delete from users
+    where ID = #id:INTEGER#
+</delete>
+
+<insert id="insertUserRole" parameterClass="java.util.Map">
+	insert into users_roles_relation (user_id,role_id) values(#userId#,#roleId#)
+	<selectKey keyProperty="id" resultClass="java.lang.Integer">
+    	  SELECT LAST_INSERT_ID()
+    </selectKey>
+</insert>
+<delete id="deleteUserRole" parameterClass="java.lang.Integer">
+	delete from users_roles_relation where user_id =#userId#
+</delete>
+
+<select id="slectRoleByUser" resultClass="java.util.HashMap" parameterClass="java.lang.Integer" >
+	 select r.id as id ,r.role_name as roleName	 from roles r, users_roles_relation ur where r.id = ur.role_id and user_id =#userId#
+</select>
+
+<select id="getNoRoleByUser" resultClass="java.util.HashMap" parameterClass="java.lang.Integer" >
+	 select  id as id, role_name as roleName from roles  where
+	 		id not in (select r.id  from roles r, users_roles_relation ur where r.id = ur.role_id  and ur.user_id =#userId#)
+</select>
+
+<select id="getFunctionByUser" resultClass="java.util.HashMap" parameterClass="java.lang.Integer" >
+	select menu_id as menuId ,name as name,url as url from menus where menu_id in (select distinct rm.menu_id as menuId  from menus m, roles_menu_relation rm ,roles r,users_roles_relation ur where rm.role_id = r.id and r.id=ur.role_id 
+	and ur.user_id=#userId# and m.menu_id = rm.menu_id)
+</select>
+</sqlMap>
