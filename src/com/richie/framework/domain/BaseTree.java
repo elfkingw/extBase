@@ -1,6 +1,6 @@
-package com.richie.framework.domain;
+ï»¿package com.richie.framework.domain;
 /**
- * »ù´¡Ê÷
+ * åŸºç¡€æ ‘
  * @author wanghua
  * Jun 6, 20101:34:04 PM
  */

@@ -1,4 +1,4 @@
-package com.richie.framework;
+﻿package com.richie.framework;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

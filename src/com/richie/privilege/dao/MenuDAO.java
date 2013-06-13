@@ -1,4 +1,4 @@
-package com.richie.privilege.dao;
+﻿package com.richie.privilege.dao;
 
 import java.util.HashMap;
 import java.util.List;

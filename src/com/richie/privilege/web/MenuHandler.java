@@ -1,4 +1,4 @@
-package com.richie.privilege.web;
+ï»¿package com.richie.privilege.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +27,7 @@ public class MenuHandler extends BaseHandler{
 		this.menuService = menuService;
 	}
 	/**
-	 * Ê÷ĞÎ²Ëµ¥»ñÈ¡
+	 * æ ‘å½¢èœå•è·å–
 	 *@author wanghua
 	 *Mar 11, 20101:18:00 PM
 	 * @param request
@@ -44,7 +44,7 @@ public class MenuHandler extends BaseHandler{
 			response.getWriter().write(jsonArr.toString());
 		} catch (Exception e) {
 			 mv = this.getErrorModelView();
-			 logger.error("»ñÈ¡²Ëµ¥Ê§°Ü£¡",e);
+			 logger.error("è·å–èœå•å¤±è´¥ï¼",e);
 			 return mv;
 		}
 		return null;
@@ -59,14 +59,14 @@ public class MenuHandler extends BaseHandler{
 			response.getWriter().write(jsonArr.toString());
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("»ñÈ¡²Ëµ¥Ê§°Ü£¡",e);
+			logger.error("è·å–èœå•å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return null;
 	}
 	
 	/**
-	 * ²Ëµ¥·ÖÒ³²éÑ¯
+	 * èœå•åˆ†é¡µæŸ¥è¯¢
 	 *@author wanghua
 	 *Mar 11, 20101:24:44 PM
 	 * @param request
@@ -93,13 +93,13 @@ public class MenuHandler extends BaseHandler{
 			mv.addObject("total",count);
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("²Ëµ¥·ÖÒ³²éÑ¯Ê§°Ü£¡",e);
+			logger.error("èœå•åˆ†é¡µæŸ¥è¯¢å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return mv;
 	}
 	/**
-	 * »ñÈ¡ËùÓĞ¸¸²Ëµ¥
+	 * è·å–æ‰€æœ‰çˆ¶èœå•
 	 *@author wanghua
 	 *Mar 11, 20109:58:37 PM
 	 * @param request
@@ -114,7 +114,7 @@ public class MenuHandler extends BaseHandler{
 			mv.addObject("root",list);
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("»ñÈ¡ËùÓĞ¸¸²Ëµ¥Ê§°Ü£¡",e);
+			logger.error("è·å–æ‰€æœ‰çˆ¶èœå•å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return mv;
@@ -126,8 +126,8 @@ public class MenuHandler extends BaseHandler{
 		try {
 			menuService.saveOrUpdate(menu);
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("²Ëµ¥±£´æÊ§°Ü");
-			logger.error("²Ëµ¥±£´æÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("èœå•ä¿å­˜å¤±è´¥");
+			logger.error("èœå•ä¿å­˜å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -138,8 +138,8 @@ public class MenuHandler extends BaseHandler{
 		try {
 			menuService.deleteMenu(Integer.valueOf(id));
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("²Ëµ¥É¾³ıÊ§°Ü");
-			logger.error("²Ëµ¥É¾³ıÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("èœå•åˆ é™¤å¤±è´¥");
+			logger.error("èœå•åˆ é™¤å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}

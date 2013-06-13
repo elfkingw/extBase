@@ -1,4 +1,4 @@
-package com.richie.framework.service;
+﻿package com.richie.framework.service;
 
 public class SaveLogThread extends Thread {
 	

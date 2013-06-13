@@ -1,4 +1,4 @@
-
+ï»¿
 package com.richie.common.service;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class NoticeService {
 	}
 
 	/**
-	 *·ÖÒ³²éÑ¯ 
+	 *åˆ†é¡µæŸ¥è¯¢ 
 	 * @author wanghua 
 	 * @param list
 	 * @return
@@ -30,7 +30,7 @@ public class NoticeService {
 		return list;
 	}
 	/**
-	 *²éÑ¯
+	 *æŸ¥è¯¢
 	 * @author wanghua 
 	 * @param list
 	 * @return
@@ -40,7 +40,7 @@ public class NoticeService {
 		return list;
 	}
 	/**
-	 * ²éÑ¯×ÜÌõÊı
+	 * æŸ¥è¯¢æ€»æ¡æ•°
 	 *@author wanghua
 	 *Mar 11, 20101:31:00 PM
 	 * @param notice
@@ -51,7 +51,7 @@ public class NoticeService {
 	}
 	
 	/**
-	 * ĞÂÔöĞÅÏ¢
+	 * æ–°å¢ä¿¡æ¯
 	 *@author wanghua
 	 * @param notice
 	 * @return
@@ -61,7 +61,7 @@ public class NoticeService {
 	}
 	
 	/**
-	 * ĞŞ¸ÄĞÅÏ¢
+	 * ä¿®æ”¹ä¿¡æ¯
 	 *@author wanghua
 	 * @param notice
 	 * @return
@@ -71,7 +71,7 @@ public class NoticeService {
 	}
 	
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 *@author wanghua
 	 * @param id
 	 */

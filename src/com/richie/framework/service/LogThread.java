@@ -1,4 +1,4 @@
-package com.richie.framework.service;
+锘縫ackage com.richie.framework.service;
 
 import org.apache.log4j.Logger;
 
@@ -8,7 +8,7 @@ public class LogThread extends Thread {
 		this.msg =msg;
 	}
 	public void run(){
-		 Logger log =	Logger.getLogger("业务日志:");
+		 Logger log =	Logger.getLogger("涓氬姟鏃ュ織:");
 		 log.info(msg);
 		
 	}

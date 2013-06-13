@@ -1,4 +1,4 @@
-package com.richie.privilege.dao;
+锘縫ackage com.richie.privilege.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public class RoleDAO extends BaseDAO {
 		return this.getSqlMapClientTemplate().queryForList(this.getStatementName("queryMenuByRole"), roleId);
 	}
 	/**
-	 * 保存菜单、角色之间的关系
+	 * 淇濆瓨鑿滃崟銆佽鑹蹭箣闂寸殑鍏崇郴
 	 * 
 	 * @author wanghua Mar 14, 20102:33:47 PM
 	 * @param userId

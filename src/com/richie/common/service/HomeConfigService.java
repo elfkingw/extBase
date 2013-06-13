@@ -1,4 +1,4 @@
-
+ï»¿
 package com.richie.common.service;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class HomeConfigService {
 	}
 
 	/**
-	 *·ÖÒ³²éÑ¯ 
+	 *åˆ†é¡µæŸ¥è¯¢ 
 	 * @author wanghua 
 	 * @param list
 	 * @return
@@ -32,7 +32,7 @@ public class HomeConfigService {
 		return list;
 	}
 	/**
-	 *²éÑ¯
+	 *æŸ¥è¯¢
 	 * @author wanghua 
 	 * @param list
 	 * @return
@@ -42,7 +42,7 @@ public class HomeConfigService {
 		return list;
 	}
 	/**
-	 * ²éÑ¯×ÜÌõÊı
+	 * æŸ¥è¯¢æ€»æ¡æ•°
 	 *@author wanghua
 	 *Mar 11, 20101:31:00 PM
 	 * @param homeConfig
@@ -53,7 +53,7 @@ public class HomeConfigService {
 	}
 	
 	/**
-	 * ĞÂÔöĞÅÏ¢
+	 * æ–°å¢ä¿¡æ¯
 	 *@author wanghua
 	 * @param homeConfig
 	 * @return
@@ -62,7 +62,7 @@ public class HomeConfigService {
 		return (Integer) homeConfigDAO.save(homeConfig);
 	}
 	/**
-	 * ĞÂÔöĞÅÏ¢
+	 * æ–°å¢ä¿¡æ¯
 	 *@author wanghua
 	 * @param homeConfig
 	 * @return
@@ -76,7 +76,7 @@ public class HomeConfigService {
 	}
 	
 	/**
-	 * ĞŞ¸ÄĞÅÏ¢
+	 * ä¿®æ”¹ä¿¡æ¯
 	 *@author wanghua
 	 * @param homeConfig
 	 * @return
@@ -86,7 +86,7 @@ public class HomeConfigService {
 	}
 	
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 *@author wanghua
 	 * @param id
 	 */
@@ -95,7 +95,7 @@ public class HomeConfigService {
 	}
 
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 *@author wanghua
 	 * @param id
 	 */

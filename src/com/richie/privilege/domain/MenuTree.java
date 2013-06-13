@@ -1,4 +1,4 @@
-package com.richie.privilege.domain;
+﻿package com.richie.privilege.domain;
 
 /**
  * 

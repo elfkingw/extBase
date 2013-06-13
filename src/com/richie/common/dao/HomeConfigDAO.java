@@ -1,7 +1,7 @@
-package com.richie.common.dao;
+锘縫ackage com.richie.common.dao;
 /**
  * author:wanghua
- * description:数据库操作类
+ * description:鏁版嵁搴撴搷浣滅被
  * richie code
  */
 import org.springframework.stereotype.Service;

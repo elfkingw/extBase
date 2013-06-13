@@ -1,4 +1,4 @@
-package com.richie.privilege.service;
+ï»¿package com.richie.privilege.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import com.richie.privilege.domain.Users;
 /**
  * 
  * @author wanghua
- * 2010-2-26ÏÂÎç12:34:05
+ * 2010-2-26ä¸‹åˆ12:34:05
  */
 @Service
 @SuppressWarnings("unchecked")
@@ -29,7 +29,7 @@ public class UserService extends BaseService {
 
 	/**
 	 * 
-	 *@author wanghua 2010-2-26ÏÂÎç12:33:48
+	 *@author wanghua 2010-2-26ä¸‹åˆ12:33:48
 	 * @param userName
 	 * @return
 	 */
@@ -43,7 +43,7 @@ public class UserService extends BaseService {
 		return user;
 	}
 	/**
-	 * ±£´æÓÃ»§
+	 * ä¿å­˜ç”¨æˆ·
 	 *@author wanghua
 	 *Mar 14, 20102:27:59 PM
 	 * @param user
@@ -71,16 +71,16 @@ public class UserService extends BaseService {
 		usersDAO.saveUserRole(list);
 	}
 	/**
-	 * ĞŞ¸ÄÓÃ»§×´Ì¬
+	 * ä¿®æ”¹ç”¨æˆ·çŠ¶æ€
 	 *@author wanghua
-	 *2010-4-15ÉÏÎç09:41:34
+	 *2010-4-15ä¸Šåˆ09:41:34
 	 * @param user
 	 */
 	public void updateUser(Users user){
 		usersDAO.update(user);
 	}
 	/**
-	 *·ÖÒ³²éÑ¯ 
+	 *åˆ†é¡µæŸ¥è¯¢ 
 	 * @author wanghua Mar 11, 20101:20:18 PM
 	 * @param map
 	 * @return
@@ -90,7 +90,7 @@ public class UserService extends BaseService {
 		return list;
 	}
 	/**
-	 * ²éÑ¯×ÜÌõÊı
+	 * æŸ¥è¯¢æ€»æ¡æ•°
 	 *@author wanghua
 	 *Mar 11, 20101:31:00 PM
 	 * @param menu

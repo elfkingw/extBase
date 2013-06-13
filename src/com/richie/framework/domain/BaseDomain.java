@@ -1,4 +1,4 @@
-package com.richie.framework.domain;
+﻿package com.richie.framework.domain;
 
 import java.util.Map;
 

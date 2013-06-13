@@ -1,4 +1,4 @@
-package com.richie.privilege.web;
+ï»¿package com.richie.privilege.web;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -32,7 +32,7 @@ public class RoleHandler extends BaseHandler{
 	}
 
 	/**
-	 * ½ÇÉ«·ÖÒ³²éÑ¯
+	 * è§’è‰²åˆ†é¡µæŸ¥è¯¢
 	 *@author wanghua
 	 *Mar 11, 20101:24:44 PM
 	 * @param request
@@ -55,7 +55,7 @@ public class RoleHandler extends BaseHandler{
 			mv.addObject("total",count);
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("½ÇÉ«·ÖÒ³²éÑ¯Ê§°Ü£¡",e);
+			logger.error("è§’è‰²åˆ†é¡µæŸ¥è¯¢å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return mv;
@@ -70,8 +70,8 @@ public class RoleHandler extends BaseHandler{
 			else
 				roleService.save(role);
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("½ÇÉ«±£´æÊ§°Ü");
-			logger.error("½ÇÉ«±£´æÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("è§’è‰²ä¿å­˜å¤±è´¥");
+			logger.error("è§’è‰²ä¿å­˜å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -82,8 +82,8 @@ public class RoleHandler extends BaseHandler{
 			List<Role> list = roleService.query(null);
 			mv.addObject("root", list);
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("»ñÈ¡½ÇÉ«Ê§°Ü");
-			logger.error("»ñÈ¡½ÇÉ«Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("è·å–è§’è‰²å¤±è´¥");
+			logger.error("è·å–è§’è‰²å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -95,8 +95,8 @@ public class RoleHandler extends BaseHandler{
 			List<HashMap> list = roleService.queryMenuByRole(Integer.valueOf(roleId!= null?roleId:"0"));
 			mv.addObject("root", list);
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("»ñÈ¡½ÇÉ«Ê§°Ü");
-			logger.error("»ñÈ¡½ÇÉ«Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("è·å–è§’è‰²å¤±è´¥");
+			logger.error("è·å–è§’è‰²å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -107,8 +107,8 @@ public class RoleHandler extends BaseHandler{
 		try {
 			roleService.saveMenuRole(Integer.valueOf(roleId), menuIds);
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("»ñÈ¡½ÇÉ«Ê§°Ü");
-			logger.error("»ñÈ¡½ÇÉ«Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("è·å–è§’è‰²å¤±è´¥");
+			logger.error("è·å–è§’è‰²å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -119,8 +119,8 @@ public class RoleHandler extends BaseHandler{
 		try {
 			roleService.delete(Integer.valueOf(id));
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("½ÇÉ«É¾³ıÊ§°Ü");
-			logger.error("½ÇÉ«É¾³ıÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("è§’è‰²åˆ é™¤å¤±è´¥");
+			logger.error("è§’è‰²åˆ é™¤å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}

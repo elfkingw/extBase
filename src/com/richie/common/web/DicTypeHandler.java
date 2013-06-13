@@ -1,4 +1,4 @@
-package com.richie.common.web;
+ï»¿package com.richie.common.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +28,7 @@ public class DicTypeHandler extends BaseHandler{
 	}
 
 	/**
-	 * ·ÖÒ³²éÑ¯
+	 * åˆ†é¡µæŸ¥è¯¢
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -48,13 +48,13 @@ public class DicTypeHandler extends BaseHandler{
 			mv.addObject("total",count);
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("·ÖÒ³²éÑ¯Ê§°Ü£¡",e);
+			logger.error("åˆ†é¡µæŸ¥è¯¢å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return mv;
 	}
 	/**
-	 * ²éÑ¯
+	 * æŸ¥è¯¢
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -68,13 +68,13 @@ public class DicTypeHandler extends BaseHandler{
 			mv.addObject("result",list);
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("²éÑ¯Ê§°Ü£¡",e);
+			logger.error("æŸ¥è¯¢å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return mv;
 	}
 	/**
-	 * ĞÂÔö»òĞŞ¸Ä
+	 * æ–°å¢æˆ–ä¿®æ”¹
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -90,13 +90,13 @@ public class DicTypeHandler extends BaseHandler{
 				dicTypeService.save(dicType);
 			}
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("±£´æÊ§°Ü");
-			logger.error("±£´æÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("ä¿å­˜å¤±è´¥");
+			logger.error("ä¿å­˜å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -108,8 +108,8 @@ public class DicTypeHandler extends BaseHandler{
 		try {
 			dicTypeService.delete(Integer.valueOf(id));
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("É¾³ıÊ§°Ü");
-			logger.error("É¾³ıÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("åˆ é™¤å¤±è´¥");
+			logger.error("åˆ é™¤å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -126,16 +126,16 @@ public class DicTypeHandler extends BaseHandler{
 			dicType.setId(Integer.valueOf(id));
 		}
 		String dicType1 =request.getParameter("dicType");
-		if(dicType1!=null && !"".equals(dicType1)){//×ÖµäÀàĞÍ
+		if(dicType1!=null && !"".equals(dicType1)){//å­—å…¸ç±»å‹
 			dicType.setDicType(dicType1);
 		}
 		String dicNote =request.getParameter("dicNote");
-		if(dicNote!=null && !"".equals(dicNote)){//ÀàĞÍÃû³Æ
+		if(dicNote!=null && !"".equals(dicNote)){//ç±»å‹åç§°
 			dicType.setDicNote(dicNote);
 		}
 	String dir = request.getParameter("dir");
 	String sort = request.getParameter("sort");
-	if(sort!=null && !"".equals(sort)){//ÅÅĞò
+	if(sort!=null && !"".equals(sort)){//æ’åº
 		Map orderMap = new HashMap();
 		orderMap.put("dir", dir);
 		orderMap.put("sort", SqlUtil.getTableColumnName(sort));

@@ -1,4 +1,4 @@
-package com.richie.framework.service;
+Ôªøpackage com.richie.framework.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * 
- * @author wanghua 2010-2-21œ¬ŒÁ09:38:15
+ * @author wanghua 2010-2-21‰∏ãÂçà09:38:15
  */
 public class BaseService {
 	

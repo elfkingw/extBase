@@ -1,4 +1,4 @@
-package com.richie.framework.dao;
+Ôªøpackage com.richie.framework.dao;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 
 /**
  * 
- * @author wanghua 2010-2-22œ¬ŒÁ03:45:35
+ * @author wanghua 2010-2-22‰∏ãÂçà03:45:35
  */
 @SuppressWarnings("unchecked")
 public class BaseDAO {

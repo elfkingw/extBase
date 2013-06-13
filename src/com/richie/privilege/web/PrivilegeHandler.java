@@ -1,4 +1,4 @@
-package com.richie.privilege.web;
+ï»¿package com.richie.privilege.web;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,7 +43,7 @@ public class PrivilegeHandler extends BaseHandler {
 	
 	public ModelAndView getChildMenus(HttpServletRequest request,HttpServletResponse response) {
 		long start = System.currentTimeMillis();
-		logger.debug("¿ªÊ¼========================");
+		logger.debug("å¼€å§‹========================");
 		String node = request.getParameter("node");
 		ModelAndView mv = this.getSuccessModelView();
 		Users user  = (Users) request.getSession().getAttribute(Const.USER_SESSON);
@@ -57,7 +57,7 @@ public class PrivilegeHandler extends BaseHandler {
 			 e.printStackTrace();
 			 return mv;
 		}
-		logger.debug("½áÊø»¨Ê±¼äÎª"+(System.currentTimeMillis()-start));
+		logger.debug("ç»“æŸèŠ±æ—¶é—´ä¸º"+(System.currentTimeMillis()-start));
 		 return null;
 	}
 }

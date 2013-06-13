@@ -1,8 +1,8 @@
-
+ï»¿
 package com.richie.common.domain;
 /**
  * author:wanghua
- * description:Êı¾İ¿â¶ÔÓ¦ÊµÌåpojo
+ * description:æ•°æ®åº“å¯¹åº”å®ä½“pojo
  * richie code
  */
 import java.sql.Timestamp;
@@ -24,9 +24,9 @@ public class DicType extends BaseDomain implements java.io.Serializable{
 	}
 	private Integer id;//id_cnName
 	
-	private String dicType;//×ÖµäÀàĞÍ
+	private String dicType;//å­—å…¸ç±»å‹
 	
-	private String dicNote;//ÀàĞÍÃû³Æ
+	private String dicNote;//ç±»å‹åç§°
 	
 	public Integer getId(){
 		return this.id;

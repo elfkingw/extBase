@@ -1,4 +1,4 @@
-package com.richie.framework.service;
+ï»¿package com.richie.framework.service;
 
 
 import org.apache.log4j.Logger;
@@ -12,21 +12,21 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class LogExAop {
 	public static int PROCESS_TIME_OUT =12;
-	   /** ¶¨Òå¹²ÓÃ·½·¨ÇĞÈëµã 
+	   /** å®šä¹‰å…±ç”¨æ–¹æ³•åˆ‡å…¥ç‚¹ 
      */ 
     @Pointcut("execution(public * *(..))") 
     public void inPublicMethod() 
     { 
     } 
     
-    /** ¶¨ÒåÊı¾İ·ÃÎÊÀà·½·¨ÇĞÈëµã 
+    /** å®šä¹‰æ•°æ®è®¿é—®ç±»æ–¹æ³•åˆ‡å…¥ç‚¹ 
      */ 
     @Pointcut("execution(* com.richie.*.dao.*.*(..))") 
     public void inDAOPackage() 
     { 
     } 
     
-    /** ¶¨ÒåÒµÎñ´¦ÀíÀà·½·¨ÇĞÈëµã 
+    /** å®šä¹‰ä¸šåŠ¡å¤„ç†ç±»æ–¹æ³•åˆ‡å…¥ç‚¹ 
      */ 
     @Pointcut("execution(* com.richie.*.service.*.*(..))") 
     public void inServicePackage() 
@@ -34,7 +34,7 @@ public class LogExAop {
         
     } 
     
-    /** web²ã·½·¨ÇĞÈëµã 
+    /** webå±‚æ–¹æ³•åˆ‡å…¥ç‚¹ 
      */ 
     @Pointcut("execution(* com.richie.*.web.*.*(..))") 
     public void inWebPackage() 
@@ -42,7 +42,7 @@ public class LogExAop {
         
     } 
     
-    /** ËùÓĞµÄpublic·½·¨£¨°üÀ¨web¡¢service£© 
+    /** æ‰€æœ‰çš„publicæ–¹æ³•ï¼ˆåŒ…æ‹¬webã€serviceï¼‰ 
      */ 
     @Pointcut("inPublicMethod() && (inDAOPackage()||inServicePackage() ||inWebPackage())") 
     public void supportAOP() 
@@ -50,35 +50,35 @@ public class LogExAop {
         
     } 
     
-    /** ÇĞÈëµãÖ´ĞĞ·¶Î§   Ö÷Òª¼ÇÂ¼Àà´¦Àí»¨·ÑÊ±¼ä  Ö÷ÒªÓÃÓÚµ÷ÊÔÓÃ
-     * @param pjp       ÇĞÈëµã 
-     * @throws Throwable ÇĞÈëµãÅ×³öµÄÒì³£ 
+    /** åˆ‡å…¥ç‚¹æ‰§è¡ŒèŒƒå›´   ä¸»è¦è®°å½•ç±»å¤„ç†èŠ±è´¹æ—¶é—´  ä¸»è¦ç”¨äºè°ƒè¯•ç”¨
+     * @param pjp       åˆ‡å…¥ç‚¹ 
+     * @throws Throwable åˆ‡å…¥ç‚¹æŠ›å‡ºçš„å¼‚å¸¸ 
      */ 
     @Around("supportAOP()") 
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable 
     { 
         Logger log = Logger.getLogger(pjp.getTarget().getClass()); 
         StringBuilder sb = new StringBuilder(); 
-        sb.append("\n==================¡¾") 
+        sb.append("\n==================ã€") 
                 .append(pjp.getTarget().getClass().getName()) 
                 .append(".") 
                 .append(pjp.getSignature().getName()) 
-                .append("¡¿"); 
+                .append("ã€‘"); 
         
         long begin = System.currentTimeMillis(); 
-        //Êµ¼Ê·½·¨Ö´ĞĞ 
+        //å®é™…æ–¹æ³•æ‰§è¡Œ 
         Object result = pjp.proceed(); 
         long end = System.currentTimeMillis(); 
-        sb.append("´¦ÀíÍê±Ï»¨·ÑÊ±¼ä£º[").append((end - begin)).append("ms]"); 
+        sb.append("å¤„ç†å®Œæ¯•èŠ±è´¹æ—¶é—´ï¼š[").append((end - begin)).append("ms]"); 
 //        log.info(sb.toString()); 
         LogThread logThread = new LogThread(sb.toString());
         logThread.start();
         return result; 
     } 
     
-    /** ÇĞÈëµãÅ×³öÒì³£ ¼ÇÂ¼ÈÕÖ¾
-     * @param jp        ÇĞÈëµã 
-     * @param ex        Å×³öµÄÒì³£ 
+    /** åˆ‡å…¥ç‚¹æŠ›å‡ºå¼‚å¸¸ è®°å½•æ—¥å¿—
+     * @param jp        åˆ‡å…¥ç‚¹ 
+     * @param ex        æŠ›å‡ºçš„å¼‚å¸¸ 
      */ 
     @AfterThrowing(pointcut = "supportAOP()", throwing = "ex") 
     public void doThrowing(JoinPoint jp, Throwable ex) 

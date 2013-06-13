@@ -1,4 +1,4 @@
-package com.richie.privilege.dao;
+ï»¿package com.richie.privilege.dao;
 
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class UsersDAO extends BaseDAO {
 	}
 
 	/**
-	 * ±£´æÓÃ»§¡¢½ÇÉ«Ö®¼äµÄ¹ØÏµ
+	 * ä¿å­˜ç”¨æˆ·ã€è§’è‰²ä¹‹é—´çš„å…³ç³»
 	 * 
 	 * @author wanghua Mar 14, 20102:33:47 PM
 	 * @param userId
@@ -54,7 +54,7 @@ public class UsersDAO extends BaseDAO {
 	}
 
 	/**
-	 * É¾³ıÓÃ»§½ÇÉ«Ö®¼äµÄ¹ØÏµ
+	 * åˆ é™¤ç”¨æˆ·è§’è‰²ä¹‹é—´çš„å…³ç³»
 	 * 
 	 * @author wanghua Mar 14, 20102:38:31 PM
 	 * @param userId
@@ -64,7 +64,7 @@ public class UsersDAO extends BaseDAO {
 				getStatementName("deleteUserRole"), userId);
 	}
 	/**
-	 * ¸ù¾İÓÃ»§»ñÈ¡ÓÃ»§½ÇÉ«
+	 * æ ¹æ®ç”¨æˆ·è·å–ç”¨æˆ·è§’è‰²
 	 *@author wanghua
 	 *Mar 16, 201011:05:48 PM
 	 * @param userId
@@ -74,7 +74,7 @@ public class UsersDAO extends BaseDAO {
 		return this.getSqlMapClientTemplate().queryForList(this.getStatementName("slectRoleByUser"),userId);
 	}
 	/**
-	 * »ñÈ¡ÓÃ»§Ã»ÓĞ·ÖÅäµÄ½ÇÉ«£¬µ«useridÎª¿ÕÊ± È«²¿ ½ÇÉ«
+	 * è·å–ç”¨æˆ·æ²¡æœ‰åˆ†é…çš„è§’è‰²ï¼Œä½†useridä¸ºç©ºæ—¶ å…¨éƒ¨ è§’è‰²
 	 *@author wanghua
 	 *Mar 17, 20108:33:35 PM
 	 * @param userId
@@ -84,7 +84,7 @@ public class UsersDAO extends BaseDAO {
 		return this.getSqlMapClientTemplate().queryForList(this.getStatementName("getNoRoleByUser"),userId);
 	}
 	/**
-	 * »ñÈ¡ÓÃ»§µÄ¹¦ÄÜ
+	 * è·å–ç”¨æˆ·çš„åŠŸèƒ½
 	 *@author wanghua
 	 *Mar 21, 201010:45:09 AM
 	 * @param userId

@@ -1,4 +1,4 @@
-package com.richie.privilege.service;
+ï»¿package com.richie.privilege.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +32,7 @@ public class MenuService {
 	}
 
 	/**
-	 *·ÖÒ³²éÑ¯ 
+	 *åˆ†é¡µæŸ¥è¯¢ 
 	 * @author wanghua Mar 11, 20101:20:18 PM
 	 * @param map
 	 * @return
@@ -42,7 +42,7 @@ public class MenuService {
 		return list;
 	}
 	/**
-	 * ²éÑ¯×ÜÌõÊı
+	 * æŸ¥è¯¢æ€»æ¡æ•°
 	 *@author wanghua
 	 *Mar 11, 20101:31:00 PM
 	 * @param menu
@@ -72,7 +72,7 @@ public class MenuService {
 	}
 	
 	/**
-	 * É¾³ı²Ëµ¥
+	 * åˆ é™¤èœå•
 	 *@author wanghua
 	 *Mar 14, 201012:11:41 AM
 	 * @param id

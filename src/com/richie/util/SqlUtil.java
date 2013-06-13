@@ -1,4 +1,4 @@
-package com.richie.util;
+﻿package com.richie.util;
 
 public class SqlUtil{
 	public static String capitalLetter ="ABCDEFGHIJKLMNOPQRSTUVWSYZ";

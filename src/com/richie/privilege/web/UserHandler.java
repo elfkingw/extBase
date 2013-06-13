@@ -1,4 +1,4 @@
-package com.richie.privilege.web; 
+ï»¿package com.richie.privilege.web; 
 
 
 
@@ -50,14 +50,14 @@ public class UserHandler extends BaseHandler{
 		if(user!= null && user.getPassword().equals(password)){
 			if(user.getStatus().equals("02")){
 				mv = this.getErrorModelView();
-				mv.addObject("error","¸ÃÓÃ»§±»½ûÓÃ£¬ÇëÓë¹ÜÀíÔ±ÁªÏµ£¡");
+				mv.addObject("error","è¯¥ç”¨æˆ·è¢«ç¦ç”¨ï¼Œè¯·ä¸ç®¡ç†å‘˜è”ç³»ï¼");
 			}else{
 				mv = this.getSuccessModelView();
 				request.getSession().setAttribute(Const.USER_SESSON, user);
 			}
 		}else{
 			mv = this.getErrorModelView();
-			mv.addObject("error","ÓÃ»§ÃûÃÜÂë´íÎó£¡");
+			mv.addObject("error","ç”¨æˆ·åå¯†ç é”™è¯¯ï¼");
 		}
 		return mv;
 	}
@@ -68,7 +68,7 @@ public class UserHandler extends BaseHandler{
 		ModelAndView mv = null;
 		if(user!= null && !user.getPassword().equals(oldPassword)){
 			mv = this.getErrorModelView();
-			mv.addObject("error","¾ÉÃÜÂëÊäÈë´íÎó£¡");
+			mv.addObject("error","æ—§å¯†ç è¾“å…¥é”™è¯¯ï¼");
 		}else{
 			Users cuser = new Users();
 			cuser.setId(user.getId());
@@ -88,11 +88,11 @@ public class UserHandler extends BaseHandler{
 			mv.addObject("functions",list);
 			List<Users> userList = userService.queryAll();
  			mv.addObject("users",userList);
- 			//Êı¾İ×Öµä
+ 			//æ•°æ®å­—å…¸
 			List<Dictionary> dicList = dictionaryService.query(null);
 			mv.addObject("dictionary",dicList);
 		}catch(Exception e){
-			logger.error("³õÊ¼»¯¾²Ì¬Êı¾İÊ§°Ü!", e);
+			logger.error("åˆå§‹åŒ–é™æ€æ•°æ®å¤±è´¥!", e);
 		}
 		return mv;
 	}
@@ -123,7 +123,7 @@ public class UserHandler extends BaseHandler{
 			List<Users> list = userService.list(user);
 			mv.addObject("result", list);
 		}catch(Exception e){
-			logger.error("²éÑ¯ÓÃ»§Ê§°Ü£¡",e);
+			logger.error("æŸ¥è¯¢ç”¨æˆ·å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -146,13 +146,13 @@ public class UserHandler extends BaseHandler{
 			}
 			userService.saveOrUpdateUser(user, roleIds);
 		}catch(Exception e){
-			mv = this.getErrorMessageView("±£´æÓÃ»§Ê§°Ü£¡");
-			logger.error("±£´æÓÃ»§Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("ä¿å­˜ç”¨æˆ·å¤±è´¥ï¼");
+			logger.error("ä¿å­˜ç”¨æˆ·å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
 	/**
-	 * ±£´æÊ×Ò³ÅäÖÃ
+	 * ä¿å­˜é¦–é¡µé…ç½®
 	 *@author wanghua
 	 *Jun 8, 20109:39:03 PM
 	 * @param request
@@ -179,8 +179,8 @@ public class UserHandler extends BaseHandler{
 			}
 			homeConfigService.save(list,user.getId());
 		}catch(Exception e){
-			mv = this.getErrorMessageView("±£´æÊ×Ò³ÅäÖÃÊ§°Ü£¡");
-			logger.error("±£´æÊ×Ò³ÅäÖÃÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("ä¿å­˜é¦–é¡µé…ç½®å¤±è´¥ï¼");
+			logger.error("ä¿å­˜é¦–é¡µé…ç½®å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -199,8 +199,8 @@ public class UserHandler extends BaseHandler{
 			mv.addObject("home", list);
 			mv.addObject("dic", dList);
 		}catch(Exception e){
-			mv = this.getErrorMessageView("±£´æÊ×Ò³ÅäÖÃÊ§°Ü£¡");
-			logger.error("±£´æÊ×Ò³ÅäÖÃÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("ä¿å­˜é¦–é¡µé…ç½®å¤±è´¥ï¼");
+			logger.error("ä¿å­˜é¦–é¡µé…ç½®å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -211,8 +211,8 @@ public class UserHandler extends BaseHandler{
 			Users user = this.formToUser(request);
 			userService.updateUser(user);
 		}catch(Exception e){
-			mv = this.getErrorMessageView("±£´æÓÃ»§Ê§°Ü£¡");
-			logger.error("²Ù×÷Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("ä¿å­˜ç”¨æˆ·å¤±è´¥ï¼");
+			logger.error("æ“ä½œå¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -220,14 +220,14 @@ public class UserHandler extends BaseHandler{
 		ModelAndView mv = this.getSuccessModelView();
 		String id = request.getParameter("id");
 		if(id == null){
-			mv = this.getErrorMessageView("ÇëÑ¡ÔñÓÃ»§£¡");
+			mv = this.getErrorMessageView("è¯·é€‰æ‹©ç”¨æˆ·ï¼");
 		}
 		try{
 			Users user = userService.getUserById(Integer.valueOf(id));
 			mv.addObject("user",user);
 		}catch(Exception e){
-			mv = this.getErrorMessageView("¸ù¾İid»ñÈ¡ÓÃ»§Ê§°Ü£¡");
-			logger.error("¸ù¾İid»ñÈ¡ÓÃ»§Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("æ ¹æ®idè·å–ç”¨æˆ·å¤±è´¥ï¼");
+			logger.error("æ ¹æ®idè·å–ç”¨æˆ·å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -243,8 +243,8 @@ public class UserHandler extends BaseHandler{
 			List<HashMap> list = userService.getRolesByUser(userId);
 			mv.addObject("result",list);
 		}catch(Exception e){
-			mv = this.getErrorMessageView("¸ù¾İid»ñÈ¡ÓÃ»§½ÇÉ«Ê§°Ü£¡");
-			logger.error("¸ù¾İid»ñÈ¡ÓÃ»§½ÇÉ«Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("æ ¹æ®idè·å–ç”¨æˆ·è§’è‰²å¤±è´¥ï¼");
+			logger.error("æ ¹æ®idè·å–ç”¨æˆ·è§’è‰²å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
@@ -259,8 +259,8 @@ public class UserHandler extends BaseHandler{
 			List<HashMap> list = userService.getNoRoleByUser(userId);
 			mv.addObject("result",list);
 		}catch(Exception e){
-			mv = this.getErrorMessageView("¸ù¾İid»ñÈ¡ÓÃ»§½ÇÉ«Ê§°Ü£¡");
-			logger.error("¸ù¾İid»ñÈ¡ÓÃ»§½ÇÉ«Ê§°Ü£¡",e);
+			mv = this.getErrorMessageView("æ ¹æ®idè·å–ç”¨æˆ·è§’è‰²å¤±è´¥ï¼");
+			logger.error("æ ¹æ®idè·å–ç”¨æˆ·è§’è‰²å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}

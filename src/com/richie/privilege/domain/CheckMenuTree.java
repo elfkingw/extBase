@@ -1,4 +1,4 @@
-package com.richie.privilege.domain;
+﻿package com.richie.privilege.domain;
 
 public class CheckMenuTree extends MenuTree{
 	private boolean checked;

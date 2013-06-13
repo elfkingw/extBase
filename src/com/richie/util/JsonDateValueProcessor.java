@@ -1,4 +1,4 @@
-package com.richie.util;
+Ôªøpackage com.richie.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +9,7 @@ import net.sf.json.processors.JsonValueProcessor;
 /**
  * 
  * @author yongtree
- * @date 2008-11-22 …œŒÁ10:54:19
+ * @date 2008-11-22 ‰∏äÂçà10:54:19
  * @version 1.0
  */
 public class JsonDateValueProcessor implements JsonValueProcessor {

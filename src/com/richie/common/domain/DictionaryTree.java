@@ -1,4 +1,4 @@
-package com.richie.common.domain;
+﻿package com.richie.common.domain;
 
 import com.richie.framework.domain.BaseTree;
 /**

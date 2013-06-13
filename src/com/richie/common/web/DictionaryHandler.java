@@ -1,4 +1,4 @@
-package com.richie.common.web;
+ï»¿package com.richie.common.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class DictionaryHandler extends BaseHandler{
 	}
 
 	/**
-	 * ·ÖÒ³²éÑ¯
+	 * åˆ†é¡µæŸ¥è¯¢
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -55,13 +55,13 @@ public class DictionaryHandler extends BaseHandler{
 			mv.addObject("total",count);
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("·ÖÒ³²éÑ¯Ê§°Ü£¡",e);
+			logger.error("åˆ†é¡µæŸ¥è¯¢å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return mv;
 	}
 	/**
-	 * ²éÑ¯
+	 * æŸ¥è¯¢
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -78,13 +78,13 @@ public class DictionaryHandler extends BaseHandler{
 			mv.addObject("result",list);
 		} catch (Exception e) {
 			mv = this.getErrorModelView();
-			logger.error("²éÑ¯Ê§°Ü£¡",e);
+			logger.error("æŸ¥è¯¢å¤±è´¥ï¼",e);
 			return mv;
 		}
 		return mv;
 	}
 	/**
-	 * ĞÂÔö»òĞŞ¸Ä
+	 * æ–°å¢æˆ–ä¿®æ”¹
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -100,13 +100,13 @@ public class DictionaryHandler extends BaseHandler{
 				dictionaryService.save(dictionary);
 			}
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("±£´æÊ§°Ü");
-			logger.error("±£´æÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("ä¿å­˜å¤±è´¥");
+			logger.error("ä¿å­˜å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
 	/**
-	 * É¾³ı
+	 * åˆ é™¤
 	 * @author wanghua
 	 * @param request
 	 * @param response
@@ -118,13 +118,13 @@ public class DictionaryHandler extends BaseHandler{
 		try {
 			dictionaryService.delete(Integer.valueOf(id));
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("É¾³ıÊ§°Ü");
-			logger.error("É¾³ıÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("åˆ é™¤å¤±è´¥");
+			logger.error("åˆ é™¤å¤±è´¥ï¼",e);
 		}
 		return mv;
 	}
 	/**
-	 * »ñÈ¡×ÖµäÀàĞÍÊ÷
+	 * è·å–å­—å…¸ç±»å‹æ ‘
 	 *@author wanghua
 	 *Jun 6, 20101:45:17 PM
 	 * @param request
@@ -147,8 +147,8 @@ public class DictionaryHandler extends BaseHandler{
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().write(jsonArr.toString());
 		} catch (Exception e) {
-			mv = this.getErrorMessageView("»ñÈ¡×ÖµäÀàĞÍÊ§°Ü£¡");
-			logger.error("»ñÈ¡×ÖµäÀàĞÍÊ§°Ü£¡",e);
+			mv = this.getErrorMessageView("è·å–å­—å…¸ç±»å‹å¤±è´¥ï¼");
+			logger.error("è·å–å­—å…¸ç±»å‹å¤±è´¥ï¼",e);
 		}
 		return null;
 	}
@@ -165,24 +165,24 @@ public class DictionaryHandler extends BaseHandler{
 			dictionary.setId(Integer.valueOf(id));
 		}
 		String dicType =request.getParameter("dicType");
-		if(dicType!=null && !"".equals(dicType)){//×ÖµäÀàĞÍ
+		if(dicType!=null && !"".equals(dicType)){//å­—å…¸ç±»å‹
 			dictionary.setDicType(new DicType(Integer.valueOf(dicType)));
 		}
 		String dicCode =request.getParameter("dicCode");
-		if(dicCode!=null && !"".equals(dicCode)){//×Öµä´úÂë
+		if(dicCode!=null && !"".equals(dicCode)){//å­—å…¸ä»£ç 
 			dictionary.setDicCode(dicCode);
 		}
 		String dicName =request.getParameter("dicName");
-		if(dicName!=null && !"".equals(dicName)){//×ÖµäÃû³Æ
+		if(dicName!=null && !"".equals(dicName)){//å­—å…¸åç§°
 			dictionary.setDicName(dicName);
 		}
 		String remark =request.getParameter("remark");
-		if(remark!=null && !"".equals(remark)){//±¸×¢
+		if(remark!=null && !"".equals(remark)){//å¤‡æ³¨
 			dictionary.setRemark(remark);
 		}
 	String dir = request.getParameter("dir");
 	String sort = request.getParameter("sort");
-	if(sort!=null && !"".equals(sort)){//ÅÅĞò
+	if(sort!=null && !"".equals(sort)){//æ’åº
 		Map orderMap = new HashMap();
 		orderMap.put("dir", dir);
 		orderMap.put("sort", SqlUtil.getTableColumnName(sort));

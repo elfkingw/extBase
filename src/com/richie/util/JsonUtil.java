@@ -1,4 +1,4 @@
-package com.richie.util;
+ï»¿package com.richie.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,16 +15,16 @@ import net.sf.json.JsonConfig;
 import net.sf.json.util.CycleDetectionStrategy;
 
 /**
- * ´¦ÀíjsonµÄ¹¤¾ßÀà£¬¸ºÔğjsonÊı¾İ×ª»»³Éjava¶ÔÏóºÍjava¶ÔÏó×ª»»³Éjson
+ * å¤„ç†jsonçš„å·¥å…·ç±»ï¼Œè´Ÿè´£jsonæ•°æ®è½¬æ¢æˆjavaå¯¹è±¡å’Œjavaå¯¹è±¡è½¬æ¢æˆjson
  * 
  * @author yongtree
- * @date 2008-11-22 ÉÏÎç10:47:13
+ * @date 2008-11-22 ä¸Šåˆ10:47:13
  * @version 1.0
  */
 public class JsonUtil {
 
     /**
-     * ´ÓÒ»¸öJSON ¶ÔÏó×Ö·û¸ñÊ½ÖĞµÃµ½Ò»¸öjava¶ÔÏó
+     * ä»ä¸€ä¸ªJSON å¯¹è±¡å­—ç¬¦æ ¼å¼ä¸­å¾—åˆ°ä¸€ä¸ªjavaå¯¹è±¡
      * 
      * @param jsonString
      * @param pojoCalss
@@ -38,7 +38,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´Ójson HASH±í´ïÊ½ÖĞ»ñÈ¡Ò»¸ömap£¬¸ÄmapÖ§³ÖÇ¶Ì×¹¦ÄÜ
+     * ä»json HASHè¡¨è¾¾å¼ä¸­è·å–ä¸€ä¸ªmapï¼Œæ”¹mapæ”¯æŒåµŒå¥—åŠŸèƒ½
      * 
      * @param jsonString
      * @return
@@ -60,7 +60,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´ÓjsonÊı×éÖĞµÃµ½ÏàÓ¦javaÊı×é
+     * ä»jsonæ•°ç»„ä¸­å¾—åˆ°ç›¸åº”javaæ•°ç»„
      * 
      * @param jsonString
      * @return
@@ -72,7 +72,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´Ójson¶ÔÏó¼¯ºÏ±í´ïÊ½ÖĞµÃµ½Ò»¸öjava¶ÔÏóÁĞ±í
+     * ä»jsonå¯¹è±¡é›†åˆè¡¨è¾¾å¼ä¸­å¾—åˆ°ä¸€ä¸ªjavaå¯¹è±¡åˆ—è¡¨
      * 
      * @param jsonString
      * @param pojoClass
@@ -97,7 +97,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´ÓjsonÊı×éÖĞ½âÎö³öjava×Ö·û´®Êı×é
+     * ä»jsonæ•°ç»„ä¸­è§£æå‡ºjavaå­—ç¬¦ä¸²æ•°ç»„
      * 
      * @param jsonString
      * @return
@@ -115,7 +115,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´ÓjsonÊı×éÖĞ½âÎö³öjavaLongĞÍ¶ÔÏóÊı×é
+     * ä»jsonæ•°ç»„ä¸­è§£æå‡ºjavaLongå‹å¯¹è±¡æ•°ç»„
      * 
      * @param jsonString
      * @return
@@ -132,7 +132,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´ÓjsonÊı×éÖĞ½âÎö³öjava IntegerĞÍ¶ÔÏóÊı×é
+     * ä»jsonæ•°ç»„ä¸­è§£æå‡ºjava Integerå‹å¯¹è±¡æ•°ç»„
      * 
      * @param jsonString
      * @return
@@ -149,7 +149,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´ÓjsonÊı×éÖĞ½âÎö³öjava Date ĞÍ¶ÔÏóÊı×é£¬Ê¹ÓÃ±¾·½·¨±ØĞë±£Ö¤
+     * ä»jsonæ•°ç»„ä¸­è§£æå‡ºjava Date å‹å¯¹è±¡æ•°ç»„ï¼Œä½¿ç”¨æœ¬æ–¹æ³•å¿…é¡»ä¿è¯
      * 
      * @param jsonString
      * @return
@@ -175,7 +175,7 @@ public class JsonUtil {
     }
 
     /**
-     * ´ÓjsonÊı×éÖĞ½âÎö³öjava IntegerĞÍ¶ÔÏóÊı×é
+     * ä»jsonæ•°ç»„ä¸­è§£æå‡ºjava Integerå‹å¯¹è±¡æ•°ç»„
      * 
      * @param jsonString
      * @return
@@ -192,7 +192,7 @@ public class JsonUtil {
     }
 
     /**
-     * ½«java¶ÔÏó×ª»»³Éjson×Ö·û´®
+     * å°†javaå¯¹è±¡è½¬æ¢æˆjsonå­—ç¬¦ä¸²
      * 
      * @param javaObj
      * @return
@@ -206,7 +206,7 @@ public class JsonUtil {
     }
 
     /**
-     * ½«java¶ÔÏó×ª»»³Éjson×Ö·û´®,²¢Éè¶¨ÈÕÆÚ¸ñÊ½
+     * å°†javaå¯¹è±¡è½¬æ¢æˆjsonå­—ç¬¦ä¸²,å¹¶è®¾å®šæ—¥æœŸæ ¼å¼
      * 
      * @param javaObj
      * @param dataFormat
@@ -222,7 +222,7 @@ public class JsonUtil {
     }
 
     /**
-     * JSON Ê±¼ä½âÎöÆ÷¾ß
+     * JSON æ—¶é—´è§£æå™¨å…·
      * 
      * @param datePattern
      * @return
@@ -238,10 +238,10 @@ public class JsonUtil {
     }
 
     /**
-     * ³ıÈ¥²»ÏëÉú³ÉµÄ×Ö¶Î£¨ÌØ±ğÊÊºÏÈ¥µô¼¶ÁªµÄ¶ÔÏó£©+Ê±¼ä×ª»»
+     * é™¤å»ä¸æƒ³ç”Ÿæˆçš„å­—æ®µï¼ˆç‰¹åˆ«é€‚åˆå»æ‰çº§è”çš„å¯¹è±¡ï¼‰+æ—¶é—´è½¬æ¢
      * 
      * @param excludes
-     *            ³ıÈ¥²»ÏëÉú³ÉµÄ×Ö¶Î
+     *            é™¤å»ä¸æƒ³ç”Ÿæˆçš„å­—æ®µ
      * @param datePattern
      * @return
      */
@@ -256,10 +256,10 @@ public class JsonUtil {
     }
 
     /**
-     * ³ıÈ¥²»ÏëÉú³ÉµÄ×Ö¶Î£¨ÌØ±ğÊÊºÏÈ¥µô¼¶ÁªµÄ¶ÔÏó£©
+     * é™¤å»ä¸æƒ³ç”Ÿæˆçš„å­—æ®µï¼ˆç‰¹åˆ«é€‚åˆå»æ‰çº§è”çš„å¯¹è±¡ï¼‰
      * 
      * @param excludes
-     *            ³ıÈ¥²»ÏëÉú³ÉµÄ×Ö¶Î
+     *            é™¤å»ä¸æƒ³ç”Ÿæˆçš„å­—æ®µ
      * @return
      */
     public static JsonConfig configJson(String[] excludes) {

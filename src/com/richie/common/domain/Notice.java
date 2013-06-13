@@ -1,8 +1,8 @@
-
+ï»¿
 package com.richie.common.domain;
 /**
  * author:wanghua
- * description:Êı¾İ¿â¶ÔÓ¦ÊµÌåpojo
+ * description:æ•°æ®åº“å¯¹åº”å®ä½“pojo
  * richie code
  */
 import java.sql.Timestamp;
@@ -18,15 +18,15 @@ public class Notice extends BaseDomain implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;//id_cnName
 	
-	private String noticeName;//±êÌâ
+	private String noticeName;//æ ‡é¢˜
 	
-	private String noticeContent;//¹«¸æÄÚÈİ
+	private String noticeContent;//å…¬å‘Šå†…å®¹
 	
-	private Integer createUserId;//´´½¨ÈË
+	private Integer createUserId;//åˆ›å»ºäºº
 	
-	private Date noticeTime;//´´½¨Ê±¼ä
+	private Date noticeTime;//åˆ›å»ºæ—¶é—´
 	
-	private Timestamp createTime;//´´½¨Ê±¼ä
+	private Timestamp createTime;//åˆ›å»ºæ—¶é—´
 	
 	public Integer getId(){
 		return this.id;

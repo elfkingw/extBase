@@ -1,8 +1,8 @@
-
+ï»¿
 package com.richie.common.domain;
 /**
  * author:wanghua
- * description:Êı¾İ¿â¶ÔÓ¦ÊµÌåpojo
+ * description:æ•°æ®åº“å¯¹åº”å®ä½“pojo
  * richie code
  */
 import java.sql.Timestamp;
