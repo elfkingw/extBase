@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.richie.common.Const;
+import com.richie.common.Constants;
 import com.richie.framework.service.SaveLogThread;
 import com.richie.privilege.domain.Users;
 import com.richie.privilege.service.UserService;
@@ -44,7 +44,7 @@ public class SecurityFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		String path  = httpRequest.getServletPath();
 		if(path.indexOf(logonUrl)==-1){	
-			Users user = (Users) httpRequest.getSession().getAttribute(Const.USER_SESSON);
+			Users user = (Users) httpRequest.getSession().getAttribute(Constants.USER_SESSON);
 			if(user == null){
 				httpResponse.sendRedirect(httpRequest.getContextPath()+"/login.html");
 			}

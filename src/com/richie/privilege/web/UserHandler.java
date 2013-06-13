@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.richie.common.Const;
+import com.richie.common.Constants;
 import com.richie.common.domain.DicType;
 import com.richie.common.domain.Dictionary;
 import com.richie.common.domain.HomeConfig;
@@ -53,7 +53,7 @@ public class UserHandler extends BaseHandler{
 				mv.addObject("error","该用户被禁用，请与管理员联系！");
 			}else{
 				mv = this.getSuccessModelView();
-				request.getSession().setAttribute(Const.USER_SESSON, user);
+				request.getSession().setAttribute(Constants.USER_SESSON, user);
 			}
 		}else{
 			mv = this.getErrorModelView();
@@ -64,7 +64,7 @@ public class UserHandler extends BaseHandler{
 	public ModelAndView updatePassword(HttpServletRequest request, HttpServletResponse response) {
 		String oldPassword = request.getParameter("oldPassword");
 		String newPassword = request.getParameter("newPassword");
-		Users user = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+		Users user = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 		ModelAndView mv = null;
 		if(user!= null && !user.getPassword().equals(oldPassword)){
 			mv = this.getErrorModelView();
@@ -82,7 +82,7 @@ public class UserHandler extends BaseHandler{
 	public ModelAndView initStaticData(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv =this.getSuccessModelView();
 		try{
-			Users user = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+			Users user = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 			mv.addObject("userInfo",user);
 			List<HashMap> list = userService.getFunctionsByUser(user.getId());
 			mv.addObject("functions",list);
@@ -99,14 +99,14 @@ public class UserHandler extends BaseHandler{
 	
 	public ModelAndView getCurrentUser(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = this.getSuccessModelView();
-		Users user = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+		Users user = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 		mv.addObject("userInfo",user);
 		return mv;
 	}
 	
 	
 	public ModelAndView logout (HttpServletRequest request ,HttpServletResponse response){
-		request.getSession().removeAttribute(Const.USER_SESSON);
+		request.getSession().removeAttribute(Constants.USER_SESSON);
 		return this.getSuccessModelView();
 	}
 	
@@ -161,7 +161,7 @@ public class UserHandler extends BaseHandler{
 	 */
 	public ModelAndView saveConfig (HttpServletRequest request ,HttpServletResponse response){
 		ModelAndView mv = this.getSuccessModelView();
-		Users user = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+		Users user = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 		try{
 			String[] homepage = request.getParameterValues("homepage");
 			String[] col = request.getParameterValues("col");
@@ -188,7 +188,7 @@ public class UserHandler extends BaseHandler{
 		ModelAndView mv = this.getSuccessModelView();
 		try{
 			HomeConfig homeConfig= new HomeConfig();
-			Users user = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+			Users user = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 			homeConfig.setUserId(user.getId());
 			List<HomeConfig> list =  homeConfigService.query(homeConfig);
 			Dictionary dictionary = new Dictionary();

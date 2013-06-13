@@ -10,7 +10,7 @@ import net.sf.json.JSONArray;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.richie.common.Const;
+import com.richie.common.Constants;
 import com.richie.framework.web.BaseHandler;
 import com.richie.privilege.domain.Menu;
 import com.richie.privilege.domain.MenuTree;
@@ -27,7 +27,7 @@ public class PrivilegeHandler extends BaseHandler {
 
 	public ModelAndView getMenus(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = this.getSuccessModelView();
-		Users user  = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+		Users user  = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 		List<Menu> list  = privilegeService.getPrivilegeMenus(user.getId());
 		mv.addObject("menus", list);
 		return mv;
@@ -35,7 +35,7 @@ public class PrivilegeHandler extends BaseHandler {
 	
 	public ModelAndView getTopMenus(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = this.getSuccessModelView();
-		Users user  = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+		Users user  = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 		List<Menu> list  = privilegeService.getTopMenus(user.getId());
 		mv.addObject("menus", list);
 		return mv;
@@ -46,7 +46,7 @@ public class PrivilegeHandler extends BaseHandler {
 		logger.debug("开始========================");
 		String node = request.getParameter("node");
 		ModelAndView mv = this.getSuccessModelView();
-		Users user  = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+		Users user  = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 		List<MenuTree> list  = privilegeService.getChildMenus(user.getId(),node);
 		 JSONArray jsonArr = JSONArray.fromObject(list);
 		 try {

@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.richie.common.Const;
+import com.richie.common.Constants;
 import com.richie.privilege.domain.Users;
 
 public class BaseHandler extends MultiActionController {
@@ -52,7 +52,7 @@ public class BaseHandler extends MultiActionController {
 		this.errorView = errorView;
 	}
 	public Users getSessionUser(HttpServletRequest request){
-		Users user = (Users) request.getSession().getAttribute(Const.USER_SESSON);
+		Users user = (Users) request.getSession().getAttribute(Constants.USER_SESSON);
 		return user;
 	}
 
